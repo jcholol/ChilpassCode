@@ -83,7 +83,12 @@ namespace Chilpass
 
         private void HELPbutton_Click(object sender, EventArgs e)
         {
-
+            var help = Application.OpenForms["Help"];
+            if (help == null)
+            {
+                help = new Help();
+            }
+            help.ShowDialog();
         }
 
         private void EXITbutton_Click(object sender, EventArgs e)
