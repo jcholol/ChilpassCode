@@ -20,13 +20,12 @@ namespace Chilpass
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void EnterMasterPasswordBox_Click(object sender, EventArgs e)
         {
 
         }
 
-        //save button
-        private void button1_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
             var NewPasswordFile = Application.OpenForms["NPF1"];
             if (NewPasswordFile == null)
@@ -35,6 +34,11 @@ namespace Chilpass
             }
             this.Close();
             NewPasswordFile.ShowDialog();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

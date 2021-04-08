@@ -29,49 +29,60 @@ namespace Chilpass
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.EnterPasswordBox = new System.Windows.Forms.TextBox();
+            this.EnterMasterPasswordBox = new System.Windows.Forms.Label();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.ExitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // EnterPasswordBox
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(328, 198);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(128, 23);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Enter Password...";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.EnterPasswordBox.Location = new System.Drawing.Point(328, 198);
+            this.EnterPasswordBox.Name = "EnterPasswordBox";
+            this.EnterPasswordBox.Size = new System.Drawing.Size(126, 23);
+            this.EnterPasswordBox.TabIndex = 3;
+            this.EnterPasswordBox.Text = "Enter Password...";
             // 
-            // label1
+            // EnterMasterPasswordBox
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(328, 180);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(126, 15);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Enter master password";
+            this.EnterMasterPasswordBox.AutoSize = true;
+            this.EnterMasterPasswordBox.Location = new System.Drawing.Point(328, 180);
+            this.EnterMasterPasswordBox.Name = "EnterMasterPasswordBox";
+            this.EnterMasterPasswordBox.Size = new System.Drawing.Size(126, 15);
+            this.EnterMasterPasswordBox.TabIndex = 4;
+            this.EnterMasterPasswordBox.Text = "Enter master password";
+            this.EnterMasterPasswordBox.Click += new System.EventHandler(this.EnterMasterPasswordBox_Click);
             // 
-            // button1
+            // saveButton
             // 
-            this.button1.Location = new System.Drawing.Point(350, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 28);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.saveButton.Location = new System.Drawing.Point(328, 227);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(54, 22);
+            this.saveButton.TabIndex = 5;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // ExitButton
+            // 
+            this.ExitButton.Location = new System.Drawing.Point(388, 227);
+            this.ExitButton.Name = "ExitButton";
+            this.ExitButton.Size = new System.Drawing.Size(54, 22);
+            this.ExitButton.TabIndex = 6;
+            this.ExitButton.Text = "Exit";
+            this.ExitButton.UseVisualStyleBackColor = true;
+            this.ExitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // NPF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.ExitButton);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.EnterMasterPasswordBox);
+            this.Controls.Add(this.EnterPasswordBox);
             this.Name = "NPF";
             this.Text = "New Password File";
             this.Load += new System.EventHandler(this.NPF_Load);
@@ -81,9 +92,9 @@ namespace Chilpass
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox EnterPasswordBox;
+        private System.Windows.Forms.Label EnterMasterPasswordBox;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button ExitButton;
     }
 }
