@@ -24,5 +24,17 @@ namespace Chilpass
         {
 
         }
+
+        //save button
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var NewPasswordFile = Application.OpenForms["NPF1"];
+            if (NewPasswordFile == null)
+            {
+                NewPasswordFile = new NPF1();
+            }
+            this.Close();
+            NewPasswordFile.ShowDialog();
+        }
     }
 }

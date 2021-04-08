@@ -33,7 +33,7 @@ namespace Chilpass
 
             if (saveDatabaseFile.ShowDialog() == DialogResult.OK)
             {
-                System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
+                //System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
             }
 
             var NewPasswordFile = Application.OpenForms["NPF"];
@@ -93,7 +93,7 @@ namespace Chilpass
 
         private void EXITbutton_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }
