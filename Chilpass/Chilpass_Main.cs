@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
 namespace Chilpass
 {
-    public partial class MAIN : Form
+    public partial class Chilpass_Main : Form
     {
-
-        public MAIN()
+        public Chilpass_Main()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void NPFbutton_Click(object sender, EventArgs e)
+        private void NewPasswordFileButton_Click(object sender, EventArgs e)
         {
             var saveDatabaseFile = new SaveFileDialog();
             saveDatabaseFile.Filter = "Database Files (*.db) | *.db ";
@@ -44,7 +36,7 @@ namespace Chilpass
             NewPasswordFile.ShowDialog();
         }
 
-        private void OPFbutton_Click(object sender, EventArgs e)
+        private void OpenPasswordFileButton_Click(object sender, EventArgs e)
         {
             var fileContent = string.Empty;
             var filePath = string.Empty;
@@ -68,20 +60,14 @@ namespace Chilpass
                     }
                 }
             }
-            var OpenPasswordFile = Application.OpenForms["OPF"];
-            if (OpenPasswordFile == null)
-            {
-                OpenPasswordFile = new OPF();
-            }
-            OpenPasswordFile.ShowDialog();
         }
 
-        private void GPbutton_Click(object sender, EventArgs e)
+        private void GeneratePasswordButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void HELPbutton_Click(object sender, EventArgs e)
+        private void HelpButton_Click(object sender, EventArgs e)
         {
             var help = Application.OpenForms["Help"];
             if (help == null)
@@ -91,7 +77,7 @@ namespace Chilpass
             help.ShowDialog();
         }
 
-        private void EXITbutton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }

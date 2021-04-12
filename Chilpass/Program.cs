@@ -17,7 +17,7 @@ namespace Chilpass
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MAIN());
+            Application.Run(new Chilpass_Main());
         }
     }
 }
