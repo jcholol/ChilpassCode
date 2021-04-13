@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.SQLite;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
 namespace Chilpass
 {
