@@ -1,7 +1,7 @@
 ﻿
 namespace Chilpass
 {
-    partial class NPF1
+    partial class FileForm
     {
         /// <summary>
         /// Required designer variable.

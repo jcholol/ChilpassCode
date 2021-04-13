@@ -7,12 +7,13 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.SQLite;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+
 
 namespace Chilpass
 {
     public partial class Chilpass_Main : Form
     {
+
         public Chilpass_Main()
         {
             InitializeComponent();
@@ -27,7 +28,8 @@ namespace Chilpass
 
             if (saveDatabaseFile.ShowDialog() == DialogResult.OK)
             {
-                //System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
+                System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
+                string filepath = saveDatabaseFile.FileName;
             }
 
             var NewPasswordFile = Application.OpenForms["NPF"];
@@ -36,6 +38,8 @@ namespace Chilpass
                 NewPasswordFile = new NPF();
             }
             NewPasswordFile.ShowDialog();
+
+            OpenPasswordFileForm();
         }
 
         private void OpenPasswordFileButton_Click(object sender, EventArgs e)
@@ -82,6 +86,19 @@ namespace Chilpass
         private void ExitButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /*
+        * Open the FileForm form and close the current form.
+        */
+        private void OpenPasswordFileForm()
+        {
+            var NewPasswordFile = Application.OpenForms["FileForm"];
+            if (NewPasswordFile == null)
+            {
+                NewPasswordFile = new FileForm();
+            }
+            NewPasswordFile.ShowDialog();
         }
     }
 }

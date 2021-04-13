@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Chilpass
 {
-    public partial class NPF1 : Form
+    public partial class FileForm : Form
     {
-        public NPF1()
+        public FileForm()
         {
             InitializeComponent();
         }

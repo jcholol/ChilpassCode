@@ -30,7 +30,7 @@ namespace Chilpass
             var openPasswordFile = Application.OpenForms["NPF1"];
             if (openPasswordFile == null)
             {
-                openPasswordFile = new NPF1();
+                openPasswordFile = new FileForm();
             }
             openPasswordFile.ShowDialog();
         }
