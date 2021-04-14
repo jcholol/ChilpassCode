@@ -54,15 +54,31 @@ namespace Chilpass
          *  Uses SHA512 hashing algorithm
          *  Returns the hashed string
          */ 
-        private string HashPassword(string password)
+        public static string HashPassword(string password)
         {
-
+            System.Diagnostics.Debug.WriteLine("Before NPF Salt Value: " + Encoding.ASCII.GetString(salt));
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA512,
-                iterationCount: 10000000,
+                iterationCount: 10000, // increase later
+                numBytesRequested: 512 / 8));
+
+            System.Diagnostics.Debug.WriteLine("After NPF Salt Value: " + Encoding.ASCII.GetString(salt));
+            return hashed;
+        }
+
+        public static string HashPassword(string password, byte[] theSalt)
+        {
+
+            // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
+            
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: password,
+                salt: theSalt,
+                prf: KeyDerivationPrf.HMACSHA512,
+                iterationCount: 10000, // increase later
                 numBytesRequested: 512 / 8));
 
             return hashed;
@@ -96,11 +112,7 @@ namespace Chilpass
 
         public static string GetSalt()
         {
-            string retVal = null;
-            for (int i = 0; i < salt.Length; i++)
-            {
-                retVal += salt[i];
-            }
+            string retVal = Encoding.ASCII.GetString(salt);
             return retVal;
         }
     }

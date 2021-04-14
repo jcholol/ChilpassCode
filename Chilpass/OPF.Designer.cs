@@ -31,7 +31,7 @@ namespace Chilpass
         {
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.EnterPasswordBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -40,7 +40,7 @@ namespace Chilpass
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 28);
             this.button1.TabIndex = 5;
-            this.button1.Text = "Save";
+            this.button1.Text = "Submit";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -55,14 +55,14 @@ namespace Chilpass
             this.label1.Text = "Enter master password";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // textBox1
+            // EnterPasswordBox
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBox1.Location = new System.Drawing.Point(336, 206);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(128, 23);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.Text = "Enter Password...";
+            this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.EnterPasswordBox.Location = new System.Drawing.Point(336, 206);
+            this.EnterPasswordBox.Name = "EnterPasswordBox";
+            this.EnterPasswordBox.Size = new System.Drawing.Size(128, 23);
+            this.EnterPasswordBox.TabIndex = 3;
+            this.EnterPasswordBox.Text = "Enter Password...";
             // 
             // OPF
             // 
@@ -71,7 +71,7 @@ namespace Chilpass
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.EnterPasswordBox);
             this.Name = "OPF";
             this.Text = "Open Password File";
             this.Load += new System.EventHandler(this.OPF_Load);
@@ -84,6 +84,6 @@ namespace Chilpass
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox EnterPasswordBox;
     }
 }

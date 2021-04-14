@@ -73,24 +73,44 @@ namespace Chilpass
             var fileContent = string.Empty;
             var filePath = string.Empty;
 
+            bool authorized = false;
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "C:\\";
-                openFileDialog.Filter = "Database Files (*.db) | *.db ";
+                openFileDialog.Filter = "Database Files (*.db) | *.db";
                 openFileDialog.FilterIndex = 2;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //Get path of file
                     filePath = openFileDialog.FileName;
-
-                    //Read contents into a stream
-                    var fileStream = openFileDialog.OpenFile();
-                    using (StreamReader reader = new StreamReader(fileStream))
-                    {
-                        fileContent = reader.ReadToEnd();
-                    }
                 }
+            }
+
+            string textFile = filePath.Substring(0, filePath.Length - 2);
+            textFile += "txt";
+
+            if (File.Exists(textFile))
+            {
+                StreamReader sr = new StreamReader(textFile);
+                string associatedFile = sr.ReadLine();
+                string oldSalt = sr.ReadLine();
+                string oldHash = sr.ReadLine();
+                sr.Close();
+
+                var openPasswordFile = Application.OpenForms["OPF"];
+                if (openPasswordFile == null)
+                {
+                    
+                    openPasswordFile = new OPF(associatedFile, bytes, oldHash);
+                }
+
+                openPasswordFile.ShowDialog();
+            }
+            else
+            {
+                // some error
             }
         }
 
