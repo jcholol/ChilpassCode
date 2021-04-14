@@ -13,8 +13,8 @@ namespace Chilpass
 {
     public partial class NPF : Form
     {
-        private string hashed;
-        private byte[] saltRet;
+        private static string hashed = default;
+        private static byte[] salt = new byte[128 / 8];
 
         public NPF()
         {
@@ -37,14 +37,12 @@ namespace Chilpass
             string masterPassword = EnterPasswordBox.Text;
             
             // generate a salt value
-            byte[] salt = GenerateSalt();
+            GenerateSalt();
             
             // generate the hash for the password
-            string hashedPassword = HashPassword(masterPassword, salt);
+            string hashedPassword = HashPassword(masterPassword);
 
             hashed = hashedPassword;
-            saltRet = salt;
-
             masterPassword = null; // clear the cleartext password asap
             this.Close();
         }
@@ -56,7 +54,7 @@ namespace Chilpass
          *  Uses SHA512 hashing algorithm
          *  Returns the hashed string
          */ 
-        private string HashPassword(string password, byte[] salt)
+        private string HashPassword(string password)
         {
 
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
@@ -76,7 +74,6 @@ namespace Chilpass
         private byte[] GenerateSalt()
         {
             // generate a salt
-            byte[] salt = new byte[128 / 8];
             using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(salt);
@@ -92,14 +89,19 @@ namespace Chilpass
             this.Close();
         }
 
-        public string GetHash()
+        public static string GetHash()
         {
             return hashed;
         }
 
-        public byte[] GetSalt()
+        public static string GetSalt()
         {
-            return saltRet;
+            string retVal = null;
+            for (int i = 0; i < salt.Length; i++)
+            {
+                retVal += salt[i];
+            }
+            return retVal;
         }
     }
 }

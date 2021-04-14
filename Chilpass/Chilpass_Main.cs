@@ -22,14 +22,15 @@ namespace Chilpass
         private void NewPasswordFileButton_Click(object sender, EventArgs e)
         {
             var saveDatabaseFile = new SaveFileDialog();
-            saveDatabaseFile.Filter = "Database Files (*.db) | *.db ";
+            saveDatabaseFile.Filter = "Database Files (*.db) | *.db";
             saveDatabaseFile.Title = "Save a Database File";
             saveDatabaseFile.FileName = "NewPasswordFile";
+            string filepath = null;
 
             if (saveDatabaseFile.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
-                string filepath = saveDatabaseFile.FileName;
+                filepath = saveDatabaseFile.FileName;
             }
 
             var NewPasswordFile = Application.OpenForms["NPF"];
@@ -38,6 +39,31 @@ namespace Chilpass
                 NewPasswordFile = new NPF();
             }
             NewPasswordFile.ShowDialog();
+
+
+            string temp = filepath.Substring(0, filepath.Length - 2);
+            temp += "txt";
+
+            if (!File.Exists(filepath))
+            {
+                File.Create(temp).Close();
+                using (StreamWriter sw = File.AppendText(temp))
+                {
+                    sw.WriteLine(filepath);
+                    sw.WriteLine(NPF.GetSalt());
+                    sw.WriteLine(NPF.GetHash());
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(temp))
+                {
+                    sw.WriteLine(filepath);
+                    sw.WriteLine(NPF.GetSalt());
+                    sw.WriteLine(NPF.GetHash());
+                }
+            }
+
 
             OpenPasswordFileForm();
         }
