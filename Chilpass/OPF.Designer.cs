@@ -60,6 +60,7 @@ namespace Chilpass
             this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.EnterPasswordBox.Location = new System.Drawing.Point(336, 206);
             this.EnterPasswordBox.Name = "EnterPasswordBox";
+            this.EnterPasswordBox.PasswordChar = '*';
             this.EnterPasswordBox.Size = new System.Drawing.Size(128, 23);
             this.EnterPasswordBox.TabIndex = 3;
             this.EnterPasswordBox.Text = "Enter Password...";

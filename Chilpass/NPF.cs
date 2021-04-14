@@ -56,16 +56,15 @@ namespace Chilpass
          */ 
         public static string HashPassword(string password)
         {
-            System.Diagnostics.Debug.WriteLine("Before NPF Salt Value: " + Encoding.ASCII.GetString(salt));
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
-                prf: KeyDerivationPrf.HMACSHA512,
+                prf: KeyDerivationPrf.HMACSHA256,
                 iterationCount: 10000, // increase later
                 numBytesRequested: 512 / 8));
 
-            System.Diagnostics.Debug.WriteLine("After NPF Salt Value: " + Encoding.ASCII.GetString(salt));
+            System.Diagnostics.Debug.WriteLine("Hash: " + hashed);
             return hashed;
         }
 
@@ -77,7 +76,7 @@ namespace Chilpass
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: theSalt,
-                prf: KeyDerivationPrf.HMACSHA512,
+                prf: KeyDerivationPrf.HMACSHA256,
                 iterationCount: 10000, // increase later
                 numBytesRequested: 512 / 8));
 
@@ -112,7 +111,7 @@ namespace Chilpass
 
         public static string GetSalt()
         {
-            string retVal = Encoding.ASCII.GetString(salt);
+            string retVal = Encoding.Unicode.GetString(salt);
             return retVal;
         }
     }

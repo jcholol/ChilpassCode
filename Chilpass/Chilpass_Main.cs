@@ -99,10 +99,12 @@ namespace Chilpass
                 string oldHash = sr.ReadLine();
                 sr.Close();
 
+                
+
                 var openPasswordFile = Application.OpenForms["OPF"];
                 if (openPasswordFile == null)
                 {
-                    
+                    byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
                     openPasswordFile = new OPF(associatedFile, bytes, oldHash);
                 }
 

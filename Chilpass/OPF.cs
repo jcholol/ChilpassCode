@@ -24,7 +24,6 @@ namespace Chilpass
             file = filepath;
             salt = oldSalt;
             hash = oldHash;
-            System.Diagnostics.Debug.WriteLine("OPF Salt Value: " + Encoding.ASCII.GetString(salt));
             InitializeComponent();
         }
 
