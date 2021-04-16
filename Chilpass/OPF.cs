@@ -38,9 +38,8 @@ namespace Chilpass
         {
             bool authorized = false;
             string enteredpassword = EnterPasswordBox.Text;
-            System.Diagnostics.Debug.WriteLine(enteredpassword);
             string newHash = NPF.HashPassword(enteredpassword, salt);
-            //System.Diagnostics.Debug.WriteLine(newHash);
+
             // authorize
             if (newHash.Length == hash.Length)
             {
@@ -50,10 +49,9 @@ namespace Chilpass
                 }
             }
 
-            System.Diagnostics.Debug.WriteLine(newHash);
             if (authorized)
             {
-                System.Diagnostics.Debug.WriteLine("Correct password");
+                System.Diagnostics.Debug.WriteLine("Correct Password, granting access...");
                 // decryption time
                 var openPasswordFile = Application.OpenForms["FileForm"];
                 if (openPasswordFile == null)
@@ -62,20 +60,11 @@ namespace Chilpass
                 }
 
                 openPasswordFile.ShowDialog();
-
-                /*
-                //Read contents into a stream
-                var fileStream = openFileDialog.OpenFile();
-                using (StreamReader reader = new StreamReader(fileStream))
-                {
-                    fileContent = reader.ReadToEnd();
-                }
-                */
             }
             else
             {
                 // password incorrect
-                System.Diagnostics.Debug.WriteLine("Wrong password");
+                System.Diagnostics.Debug.WriteLine("Wrong password!");
             }
 
 

@@ -36,7 +36,8 @@ namespace Chilpass
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(358, 235);
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button1.Location = new System.Drawing.Point(89, 93);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 28);
             this.button1.TabIndex = 5;
@@ -48,7 +49,7 @@ namespace Chilpass
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(336, 183);
+            this.label1.Location = new System.Drawing.Point(67, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 15);
             this.label1.TabIndex = 4;
@@ -58,7 +59,7 @@ namespace Chilpass
             // EnterPasswordBox
             // 
             this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.EnterPasswordBox.Location = new System.Drawing.Point(336, 206);
+            this.EnterPasswordBox.Location = new System.Drawing.Point(67, 64);
             this.EnterPasswordBox.Name = "EnterPasswordBox";
             this.EnterPasswordBox.PasswordChar = '*';
             this.EnterPasswordBox.Size = new System.Drawing.Size(128, 23);
@@ -69,7 +70,7 @@ namespace Chilpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(263, 167);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EnterPasswordBox);

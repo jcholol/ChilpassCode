@@ -29,7 +29,7 @@ namespace Chilpass
 
             if (saveDatabaseFile.ShowDialog() == DialogResult.OK)
             {
-                System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
+                //System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
                 filepath = saveDatabaseFile.FileName;
             }
 
@@ -40,30 +40,10 @@ namespace Chilpass
             }
             NewPasswordFile.ShowDialog();
 
-
-            string temp = filepath.Substring(0, filepath.Length - 2);
-            temp += "txt";
-
-            if (!File.Exists(filepath))
-            {
-                File.Create(temp).Close();
-                using (StreamWriter sw = File.AppendText(temp))
-                {
-                    sw.WriteLine(filepath);
-                    sw.WriteLine(NPF.GetSalt());
-                    sw.WriteLine(NPF.GetHash());
-                }
-            }
-            else
-            {
-                using (StreamWriter sw = File.AppendText(temp))
-                {
-                    sw.WriteLine(filepath);
-                    sw.WriteLine(NPF.GetSalt());
-                    sw.WriteLine(NPF.GetHash());
-                }
-            }
-
+            SQLiteConnection sqliteConnection;
+            sqliteConnection = CreateConnection(filepath);
+            CreateTable(sqliteConnection);
+            InsertAuthData(sqliteConnection, NPF.GetSalt(), NPF.GetHash());
 
             OpenPasswordFileForm();
         }
@@ -88,37 +68,23 @@ namespace Chilpass
                 }
             }
 
-            string textFile = filePath.Substring(0, filePath.Length - 2);
-            textFile += "txt";
+            string oldSalt = String.Empty;
+            string oldHash = String.Empty;
 
-            if (File.Exists(textFile))
+            SQLiteConnection sqliteConnection;
+            sqliteConnection = CreateConnection(filePath);
+            oldSalt = ReadSalt(sqliteConnection);
+            oldHash = ReadHash(sqliteConnection);
+            sqliteConnection.Close();
+
+            var openPasswordFile = Application.OpenForms["OPF"];
+            if (openPasswordFile == null)
             {
-                StreamReader sr = new StreamReader(textFile);
-                string associatedFile = sr.ReadLine();
-                string oldSalt = sr.ReadLine();
-                string oldHash = sr.ReadLine();
-                sr.Close();
-
-                
-
-                var openPasswordFile = Application.OpenForms["OPF"];
-                if (openPasswordFile == null)
-                {
-                    byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
-                    openPasswordFile = new OPF(associatedFile, bytes, oldHash);
-                }
-
-                openPasswordFile.ShowDialog();
+                byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
+                openPasswordFile = new OPF(filePath, bytes, oldHash);
             }
-            else
-            {
-                // some error
-            }
-        }
 
-        private void GeneratePasswordButton_Click(object sender, EventArgs e)
-        {
-
+            openPasswordFile.ShowDialog();
         }
 
         private void HelpButton_Click(object sender, EventArgs e)
@@ -147,6 +113,155 @@ namespace Chilpass
                 NewPasswordFile = new FileForm();
             }
             NewPasswordFile.ShowDialog();
+        }
+
+
+        private void GeneratePasswordButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        /*
+         * ----------------------------SQLITE METHODS-------------------------------------
+         *  Methods derived and altered form: https://www.codeguru.com/csharp/.net/net_data/using-sqlite-in-a-c-application.html
+         */
+        public static SQLiteConnection CreateConnection(string filepath)
+        {
+            SQLiteConnection sqliteConneciton;
+            sqliteConneciton = new SQLiteConnection("Data Source=" + filepath + ";Version=3;New=True;Compress=True;");
+            try
+            {
+                sqliteConneciton.Open();
+                System.Diagnostics.Debug.WriteLine("Connection Established: " + filepath);
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Connection Failed: " + filepath);
+            }
+            return sqliteConneciton;
+        }
+
+        public static void CreateTable(SQLiteConnection sqliteConnection)
+        {
+            SQLiteCommand sqliteCommand;
+            string infoTable = "CREATE TABLE INFO (Salt VARCHAR(20), Master VARCHAR(20))";
+            string entryTable = "CREATE TABLE ENTRY (Title VARCHAR(20), Password VARCHAR(20))";
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = infoTable;
+            sqliteCommand.ExecuteNonQuery();
+            sqliteCommand.CommandText = entryTable;
+            sqliteCommand.ExecuteNonQuery();
+        }
+
+        public static void InsertAuthData(SQLiteConnection sqliteConnection, string salt, string hash)
+        {
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = "INSERT INTO INFO (Salt, Master) VALUES ('" + salt + "', '" + hash + "');";
+            sqliteCommand.ExecuteNonQuery();
+        }
+
+        public static string ReadSalt(SQLiteConnection sqliteConnection)
+        {
+            SQLiteDataReader sqliteDataReader;
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = "SELECT Salt FROM INFO";
+
+            string myreader = "";
+            sqliteDataReader = sqliteCommand.ExecuteReader();
+            while (sqliteDataReader.Read())
+            {
+                myreader = sqliteDataReader.GetString(0);
+                System.Diagnostics.Debug.WriteLine(myreader);
+            }
+            return myreader;
+        }
+
+        public static string ReadHash(SQLiteConnection sqliteConnection)
+        {
+            SQLiteDataReader sqliteDataReader;
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = "SELECT Master FROM INFO";
+
+            string myreader = "";
+            sqliteDataReader = sqliteCommand.ExecuteReader();
+            while (sqliteDataReader.Read())
+            {
+                myreader = sqliteDataReader.GetString(0);
+                System.Diagnostics.Debug.WriteLine(myreader);
+            }
+            return myreader;
+        }
+
+        /*
+        * -----------------OLD Version, two file system. Methods to open and create text files-----------------
+        */
+        // old TXT version
+        private void OpenTxtVersion(string filepath)
+        {
+            string textFile = filepath.Substring(0, filepath.Length - 2);
+            textFile += "txt";
+
+            if (File.Exists(textFile))
+            {
+                StreamReader sr = new StreamReader(textFile);
+                string associatedFile = sr.ReadLine();
+                string oldSalt = sr.ReadLine();
+                string oldHash = sr.ReadLine();
+                sr.Close();
+
+
+
+                var openPasswordFile = Application.OpenForms["OPF"];
+                if (openPasswordFile == null)
+                {
+                    byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
+                    openPasswordFile = new OPF(associatedFile, bytes, oldHash);
+                }
+
+                openPasswordFile.ShowDialog();
+            }
+            else
+            {
+                // some error
+            }
+        }
+
+        // old txt version
+        private void CreateTxtVersion(string filepath)
+        {
+            string textFile = filepath.Substring(0, filepath.Length - 2);
+            textFile += "txt";
+
+            if (!File.Exists(filepath))
+            {
+                // ATT TO INFO
+                File.Create(filepath).Close();
+                using (StreamWriter sw = File.AppendText(filepath))
+                {
+                    sw.WriteLine(filepath);
+                    sw.WriteLine(NPF.GetSalt());
+                    sw.WriteLine(NPF.GetHash());
+                }
+            }
+            else
+            {
+                using (StreamWriter sw = File.AppendText(filepath))
+                {
+                    sw.WriteLine(filepath);
+                    sw.WriteLine(NPF.GetSalt());
+                    sw.WriteLine(NPF.GetHash());
+                }
+            }
         }
     }
 }

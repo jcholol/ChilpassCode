@@ -38,7 +38,7 @@ namespace Chilpass
             // EnterPasswordBox
             // 
             this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.EnterPasswordBox.Location = new System.Drawing.Point(328, 198);
+            this.EnterPasswordBox.Location = new System.Drawing.Point(54, 57);
             this.EnterPasswordBox.Name = "EnterPasswordBox";
             this.EnterPasswordBox.PasswordChar = '*';
             this.EnterPasswordBox.Size = new System.Drawing.Size(126, 23);
@@ -47,8 +47,9 @@ namespace Chilpass
             // 
             // EnterMasterPasswordBox
             // 
+            this.EnterMasterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.EnterMasterPasswordBox.AutoSize = true;
-            this.EnterMasterPasswordBox.Location = new System.Drawing.Point(328, 180);
+            this.EnterMasterPasswordBox.Location = new System.Drawing.Point(54, 39);
             this.EnterMasterPasswordBox.Name = "EnterMasterPasswordBox";
             this.EnterMasterPasswordBox.Size = new System.Drawing.Size(126, 15);
             this.EnterMasterPasswordBox.TabIndex = 4;
@@ -57,7 +58,8 @@ namespace Chilpass
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(328, 227);
+            this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.saveButton.Location = new System.Drawing.Point(54, 86);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(54, 22);
             this.saveButton.TabIndex = 5;
@@ -67,7 +69,8 @@ namespace Chilpass
             // 
             // ExitButton
             // 
-            this.ExitButton.Location = new System.Drawing.Point(388, 227);
+            this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ExitButton.Location = new System.Drawing.Point(114, 86);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(54, 22);
             this.ExitButton.TabIndex = 6;
@@ -79,7 +82,7 @@ namespace Chilpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(252, 169);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.EnterMasterPasswordBox);
