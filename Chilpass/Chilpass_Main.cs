@@ -168,6 +168,14 @@ namespace Chilpass
             sqliteCommand.ExecuteNonQuery();
         }
 
+        public static void InsertEntry(SQLiteConnection sqliteConnection, string title, string password)
+        {
+            SQLiteCommand sqlitecommand;
+            sqlitecommand = sqliteConnection.CreateCommand();
+            sqlitecommand.CommandText = "INSERT INTO ENTRY (Title, Password) VALUES ('" + title + "', '" + password + "')";
+            sqlitecommand.ExecuteNonQuery();
+        }
+
         public static string ReadSalt(SQLiteConnection sqliteConnection)
         {
             SQLiteDataReader sqliteDataReader;
