@@ -40,6 +40,7 @@ namespace Chilpass
             }
         }
 
+        // temp
         private void NewPasswordButton_Click(object sender, EventArgs e)
         {
             string title = "temp";
