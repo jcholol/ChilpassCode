@@ -8,6 +8,7 @@ using System.IO;
 using System.Windows.Forms;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using System.Data.SQLite;
 
 namespace Chilpass
 {
@@ -15,9 +16,16 @@ namespace Chilpass
     {
         private static string hashed = default;
         private static byte[] salt = new byte[128 / 8];
+        private string filePath;
 
         public NPF()
         {
+            InitializeComponent();
+        }
+
+        public NPF(string filepath)
+        {
+            filePath = filepath;
             InitializeComponent();
         }
 
@@ -38,12 +46,39 @@ namespace Chilpass
             
             // generate a salt value
             GenerateSalt();
-            
-            // generate the hash for the password
-            string hashedPassword = HashPassword(masterPassword);
 
-            hashed = hashedPassword;
+            /*
+             * Old Code
+            // generate the hash for the password
+            string hashedPassword = PBKDF2(masterPassword, 10000);
+            */
+
+            /*
+             * New Code
+             */
+            // generate the encryption key value, this is derived
+            string encryptionKey = PBKDF2(masterPassword, salt, 10000);
+
+
+            // generate the hash for the password, store this in the file
+            string hashKey = PBKDF2(encryptionKey, salt, 1);
+
+            /*
+             * End
+             */
+
+            hashed = hashKey;
             masterPassword = null; // clear the cleartext password asap
+
+            SQLiteConnection sqliteConnection;
+            sqliteConnection = Chilpass_Main.CreateConnection(filePath);
+            Chilpass_Main.CreateTable(sqliteConnection);
+
+            // Ensure data is encrpyted using encryption key
+            Chilpass_Main.InsertAuthData(sqliteConnection, NPF.GetSalt(), NPF.GetHash());
+
+            Chilpass_Main.OpenPasswordFileForm(encryptionKey, filePath);
+
             this.Close();
         }
 
@@ -54,21 +89,21 @@ namespace Chilpass
          *  Uses SHA512 hashing algorithm
          *  Returns the hashed string
          */ 
-        public static string HashPassword(string password)
+        public static string PBKDF2(string password, int iterations)
         {
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
                 password: password,
                 salt: salt,
                 prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 10000, // increase later
-                numBytesRequested: 512 / 8));
+                iterationCount: iterations, // increase later
+                numBytesRequested: 128 / 8));
 
             System.Diagnostics.Debug.WriteLine("Hash: " + hashed);
             return hashed;
         }
 
-        public static string HashPassword(string password, byte[] theSalt)
+        public static string PBKDF2(string password, byte[] theSalt, int iterations)
         {
 
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
@@ -77,11 +112,13 @@ namespace Chilpass
                 password: password,
                 salt: theSalt,
                 prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 10000, // increase later
-                numBytesRequested: 512 / 8));
+                iterationCount: iterations, // increase later
+                numBytesRequested: 128 / 8));
 
             return hashed;
         }
+
+
 
         /* 
          * Creates a pseudorandom salt to make a hash unique between like passwords

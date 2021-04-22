@@ -71,6 +71,7 @@ namespace Chilpass
             this.NewPasswordButton.TabIndex = 4;
             this.NewPasswordButton.Text = "New Password";
             this.NewPasswordButton.UseVisualStyleBackColor = true;
+            this.NewPasswordButton.Click += new System.EventHandler(this.NewPasswordButton_Click);
             // 
             // FileForm
             // 

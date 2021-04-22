@@ -38,12 +38,19 @@ namespace Chilpass
         {
             bool authorized = false;
             string enteredpassword = EnterPasswordBox.Text;
-            string newHash = NPF.HashPassword(enteredpassword, salt);
 
+            /*
+             * Old Code
+             * string newHash = NPF.PBKDF2(enteredpassword, salt, 10000);
+             */
+            string encKey = NPF.PBKDF2(enteredpassword, salt, 10000);
+
+            string hashKey = NPF.PBKDF2(encKey, salt, 1);
+            System.Diagnostics.Debug.WriteLine("Hash: " + hashKey);
             // authorize
-            if (newHash.Length == hash.Length)
+            if (hashKey.Length == hash.Length)
             {
-                if (newHash.Equals(hash))
+                if (hashKey.Equals(hash))
                 {
                     authorized = true;
                 }
@@ -56,7 +63,7 @@ namespace Chilpass
                 var openPasswordFile = Application.OpenForms["FileForm"];
                 if (openPasswordFile == null)
                 {
-                    openPasswordFile = new FileForm();
+                    openPasswordFile = new FileForm(encKey, file);
                 }
 
                 openPasswordFile.ShowDialog();

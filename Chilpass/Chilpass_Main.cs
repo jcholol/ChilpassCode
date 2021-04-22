@@ -36,16 +36,11 @@ namespace Chilpass
             var NewPasswordFile = Application.OpenForms["NPF"];
             if (NewPasswordFile == null)
             {
-                NewPasswordFile = new NPF();
+                NewPasswordFile = new NPF(filepath);
             }
             NewPasswordFile.ShowDialog();
 
-            SQLiteConnection sqliteConnection;
-            sqliteConnection = CreateConnection(filepath);
-            CreateTable(sqliteConnection);
-            InsertAuthData(sqliteConnection, NPF.GetSalt(), NPF.GetHash());
-
-            OpenPasswordFileForm();
+            
         }
 
         private void OpenPasswordFileButton_Click(object sender, EventArgs e)
@@ -105,12 +100,12 @@ namespace Chilpass
         /*
         * Open the FileForm form and close the current form.
         */
-        private void OpenPasswordFileForm()
+        public static void OpenPasswordFileForm(string encrypKey, string file)
         {
             var NewPasswordFile = Application.OpenForms["FileForm"];
             if (NewPasswordFile == null)
             {
-                NewPasswordFile = new FileForm();
+                NewPasswordFile = new FileForm(encrypKey, file);
             }
             NewPasswordFile.ShowDialog();
         }
