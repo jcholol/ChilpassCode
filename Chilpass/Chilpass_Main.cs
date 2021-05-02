@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Data.SQLite;
+using System.Collections;
 
 
 namespace Chilpass
@@ -171,6 +172,14 @@ namespace Chilpass
             sqlitecommand.ExecuteNonQuery();
         }
 
+        public static void RemoveEntry(SQLiteConnection sqliteConnection, string title)
+        {
+            SQLiteCommand sqlitecommand;
+            sqlitecommand = sqliteConnection.CreateCommand();
+            sqlitecommand.CommandText = "DELETE FROM ENTRY WHERE Title = '" + title + "';";
+            sqlitecommand.ExecuteNonQuery();
+        }
+
         public static string ReadSalt(SQLiteConnection sqliteConnection)
         {
             SQLiteDataReader sqliteDataReader;
@@ -203,6 +212,26 @@ namespace Chilpass
                 System.Diagnostics.Debug.WriteLine(myreader);
             }
             return myreader;
+        }
+
+        public static ArrayList ReadEntries(SQLiteConnection sqliteConnection)
+        {
+            ArrayList array = new ArrayList();
+            SQLiteDataReader sqliteDataReader;
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = "SELECT * FROM ENTRY";
+
+            sqliteDataReader = sqliteCommand.ExecuteReader();
+            while (sqliteDataReader.Read())
+            {
+                string myreader = sqliteDataReader.GetString(0);
+                array.Add(myreader);
+                myreader = sqliteDataReader.GetString(1);
+                array.Add(myreader);
+            }
+            sqliteConnection.Close();
+            return array;
         }
 
         /*

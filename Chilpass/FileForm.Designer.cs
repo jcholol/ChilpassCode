@@ -29,32 +29,43 @@ namespace Chilpass
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.listView = new System.Windows.Forms.ListView();
+            this.Title = new System.Windows.Forms.ColumnHeader();
+            this.Password = new System.Windows.Forms.ColumnHeader();
             this.RemovePasswordButton = new System.Windows.Forms.Button();
             this.NewPasswordButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listView1
+            // listView
             // 
-            this.listView1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.listView1.HideSelection = false;
-            listViewItem3.ToolTipText = "Application";
-            listViewItem4.ToolTipText = "Password";
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3,
-            listViewItem4});
-            this.listView1.Location = new System.Drawing.Point(91, 171);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(412, 164);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Title,
+            this.Password});
+            this.listView.FullRowSelect = true;
+            this.listView.HideSelection = false;
+            this.listView.Location = new System.Drawing.Point(53, 112);
+            this.listView.MultiSelect = false;
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(404, 253);
+            this.listView.TabIndex = 7;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            // 
+            // Title
+            // 
+            this.Title.Text = "Title";
+            this.Title.Width = 200;
+            // 
+            // Password
+            // 
+            this.Password.Text = "Password";
+            this.Password.Width = 200;
             // 
             // RemovePasswordButton
             // 
             this.RemovePasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RemovePasswordButton.Location = new System.Drawing.Point(373, 76);
+            this.RemovePasswordButton.Location = new System.Drawing.Point(295, 37);
             this.RemovePasswordButton.Name = "RemovePasswordButton";
             this.RemovePasswordButton.Size = new System.Drawing.Size(130, 23);
             this.RemovePasswordButton.TabIndex = 5;
@@ -65,7 +76,7 @@ namespace Chilpass
             // NewPasswordButton
             // 
             this.NewPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.NewPasswordButton.Location = new System.Drawing.Point(91, 76);
+            this.NewPasswordButton.Location = new System.Drawing.Point(74, 37);
             this.NewPasswordButton.Name = "NewPasswordButton";
             this.NewPasswordButton.Size = new System.Drawing.Size(147, 23);
             this.NewPasswordButton.TabIndex = 4;
@@ -77,8 +88,8 @@ namespace Chilpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(602, 418);
-            this.Controls.Add(this.listView1);
+            this.ClientSize = new System.Drawing.Size(504, 411);
+            this.Controls.Add(this.listView);
             this.Controls.Add(this.RemovePasswordButton);
             this.Controls.Add(this.NewPasswordButton);
             this.Name = "FileForm";
@@ -89,8 +100,10 @@ namespace Chilpass
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listView;
         private System.Windows.Forms.Button RemovePasswordButton;
         private System.Windows.Forms.Button NewPasswordButton;
+        private System.Windows.Forms.ColumnHeader Title;
+        private System.Windows.Forms.ColumnHeader Password;
     }
 }

@@ -74,7 +74,7 @@ namespace Chilpass
                 System.Diagnostics.Debug.WriteLine("Wrong password!");
             }
 
-
+            Close();
         }
     }
 }

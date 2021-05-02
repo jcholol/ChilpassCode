@@ -7,6 +7,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using System.IO;
+using System.Data.SQLite;
+using System.Collections;
 
 namespace Chilpass
 {
@@ -14,6 +16,8 @@ namespace Chilpass
     {
         // authorized view
         private string encryptionKey = String.Empty;
+        private string filepath = String.Empty;
+        private ArrayList encryptedArray;
 
         public FileForm()
         {
@@ -22,46 +26,80 @@ namespace Chilpass
 
         public FileForm(string encKey, string file)
         {
+            filepath = file;
             encryptionKey = encKey;
             InitializeComponent();
+            LoadListView();
         }
 
         private void RemovePasswordButton_Click(object sender, EventArgs e)
         {
-            const string msg = "Are you sure you want to delete this password entry? \nOnce it is deleted, it CANNOT be recovered.";
-            const string boxTitle = "Are you sure?";
-
-            var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Yes)
+            if (listView.SelectedItems.Count > 0)
             {
+                string title = listView.SelectedItems[0].Text;
+                int index = listView.Items.IndexOf(listView.SelectedItems[0]);
+                index = index * 2;
+                System.Diagnostics.Debug.WriteLine("Index: " + index);
 
+                const string msg = "Are you sure you want to delete this password entry? \nOnce it is deleted, it CANNOT be recovered.";
+                const string boxTitle = "Are you sure?";
+
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    string temp = (string) encryptedArray[index];
+                    System.Diagnostics.Debug.WriteLine("Value get title: " + temp);
+                    SQLiteConnection connection = Chilpass_Main.CreateConnection(filepath);
+                    Chilpass_Main.RemoveEntry(connection, temp);
+                    connection.Close();
+                    LoadListView();
+                }
+            }
+            else
+            {
+                const string msg = "Select an item from the list to remove.";
+                const string boxTitle = "Error.";
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
-        // temp
         private void NewPasswordButton_Click(object sender, EventArgs e)
         {
-            string title = "temp";
-            string password = "temp1";
-            string encryptedTitle = Encrpyt(encryptionKey, title);
-            string ecryptedPassword = Encrpyt(encryptionKey, password);
+            var NewPassword = Application.OpenForms["NewPassword"];
+            if (NewPassword == null)
+            {
+                NewPassword = new NewPassword(encryptionKey, filepath);
+            }
+            NewPassword.ShowDialog();
+            LoadListView();
+        }
 
+        public void LoadListView()
+        {
+            listView.Items.Clear();
+            SQLiteConnection sqliteConnection = Chilpass_Main.CreateConnection(filepath);
+            encryptedArray = Chilpass_Main.ReadEntries(sqliteConnection);
+            
+            for (int i = 0; i < encryptedArray.Count - 1; i++)
+            {
+                string title = Decrypt(encryptionKey, (string)encryptedArray[i]);
+                string pass = Decrypt(encryptionKey, (string)encryptedArray[i+1]);
 
-            System.Diagnostics.Debug.WriteLine("Encrypted title: " + encryptedTitle);
-            System.Diagnostics.Debug.WriteLine("Encrypted password: " + ecryptedPassword);
-
-            string decryptTitle = Decrypt(encryptionKey, encryptedTitle);
-            string decryptPass = Decrypt(encryptionKey, ecryptedPassword);
-            System.Diagnostics.Debug.WriteLine("Decrypted title: " + decryptTitle);
-            System.Diagnostics.Debug.WriteLine("Decrypted password: " + decryptPass);
+                ListViewItem item = new ListViewItem(title);
+                item.SubItems.Add(pass);
+                listView.Items.AddRange(new ListViewItem[] { item });
+                i++;
+            }
+            sqliteConnection.Close();
         }
 
         /*
          * Referenced: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.cryptostream?view=net-5.0
          */
-        public string Encrpyt(string key, string value)
+        public static string Encrypt(string key, string value)
         {
             byte[] iv = new byte[16];
             byte[] encryptedText; 
@@ -90,7 +128,7 @@ namespace Chilpass
             return Convert.ToBase64String(encryptedText);
         }
 
-        public string Decrypt(string key, string encryptedText)
+        public static string Decrypt(string key, string encryptedText)
         {
             
             byte[] iv = new byte[16];
