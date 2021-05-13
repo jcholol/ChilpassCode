@@ -45,10 +45,10 @@ namespace Chilpass
             string encryptedPassword = FileForm.Encrypt(encryptionKey, enteredPassword);
 
             // create a new SQLite connection the the file destinatiton
-            SQLiteConnection connection = Chilpass_Main.CreateConnection(filepath);
+            SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
 
             // insert a new entry into the password file
-            Chilpass_Main.InsertEntry(connection, encryptedTitle, encryptedPassword);
+            DatabaseManager.InsertEntry(connection, encryptedTitle, encryptedPassword);
             
             // close the SQLite connection 
             connection.Close();

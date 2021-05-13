@@ -64,23 +64,31 @@ namespace Chilpass
                 }
             }
 
-            string oldSalt = String.Empty;
-            string oldHash = String.Empty;
-
-            SQLiteConnection sqliteConnection;
-            sqliteConnection = CreateConnection(filePath);
-            oldSalt = ReadSalt(sqliteConnection);
-            oldHash = ReadHash(sqliteConnection);
-            sqliteConnection.Close();
-
-            var openPasswordFile = Application.OpenForms["OPF"];
-            if (openPasswordFile == null)
+            if (filePath == "")
             {
-                byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
-                openPasswordFile = new OPF(filePath, bytes, oldHash);
-            }
 
-            openPasswordFile.ShowDialog();
+            }
+            else
+            {
+                string oldSalt = String.Empty;
+                string oldHash = String.Empty;
+
+                SQLiteConnection sqliteConnection;
+                sqliteConnection = DatabaseManager.CreateConnection(filePath);
+                oldSalt = DatabaseManager.ReadSalt(sqliteConnection);
+                oldHash = DatabaseManager.ReadHash(sqliteConnection);
+                sqliteConnection.Close();
+
+                var openPasswordFile = Application.OpenForms["OPF"];
+                if (openPasswordFile == null)
+                {
+                    byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
+                    openPasswordFile = new OPF(filePath, bytes, oldHash);
+                }
+
+                openPasswordFile.ShowDialog();
+            }
+            
         }
 
         private void HelpButton_Click(object sender, EventArgs e)
@@ -128,6 +136,7 @@ namespace Chilpass
          * ----------------------------SQLITE METHODS-------------------------------------
          *  Methods derived and altered form: https://www.codeguru.com/csharp/.net/net_data/using-sqlite-in-a-c-application.html
          */
+        /*
         public static SQLiteConnection CreateConnection(string filepath)
         {
             SQLiteConnection sqliteConneciton;
@@ -233,11 +242,13 @@ namespace Chilpass
             sqliteConnection.Close();
             return array;
         }
+        */
 
         /*
         * -----------------OLD Version, two file system. Methods to open and create text files-----------------
         */
         // old TXT version
+        /*
         private void OpenTxtVersion(string filepath)
         {
             string textFile = filepath.Substring(0, filepath.Length - 2);
@@ -295,5 +306,6 @@ namespace Chilpass
                 }
             }
         }
+        */
     }
 }

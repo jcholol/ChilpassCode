@@ -51,8 +51,8 @@ namespace Chilpass
                 {
                     string temp = (string) encryptedArray[index];
                     System.Diagnostics.Debug.WriteLine("Value get title: " + temp);
-                    SQLiteConnection connection = Chilpass_Main.CreateConnection(filepath);
-                    Chilpass_Main.RemoveEntry(connection, temp);
+                    SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
+                    DatabaseManager.RemoveEntry(connection, temp);
                     connection.Close();
                     LoadListView();
                 }
@@ -80,8 +80,8 @@ namespace Chilpass
         public void LoadListView()
         {
             listView.Items.Clear();
-            SQLiteConnection sqliteConnection = Chilpass_Main.CreateConnection(filepath);
-            encryptedArray = Chilpass_Main.ReadEntries(sqliteConnection);
+            SQLiteConnection sqliteConnection = DatabaseManager.CreateConnection(filepath);
+            encryptedArray = DatabaseManager.ReadEntries(sqliteConnection);
             
             for (int i = 0; i < encryptedArray.Count - 1; i++)
             {

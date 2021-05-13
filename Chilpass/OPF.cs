@@ -43,9 +43,9 @@ namespace Chilpass
              * Old Code
              * string newHash = NPF.PBKDF2(enteredpassword, salt, 10000);
              */
-            string encKey = NPF.PBKDF2(enteredpassword, salt, 10000);
+            string encKey = HashingManager.PBKDF2(enteredpassword, salt, 10000);
 
-            string hashKey = NPF.PBKDF2(encKey, salt, 1);
+            string hashKey = HashingManager.PBKDF2(encKey, salt, 1);
             System.Diagnostics.Debug.WriteLine("Hash: " + hashKey);
             // authorize
             if (hashKey.Length == hash.Length)

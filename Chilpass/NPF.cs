@@ -45,7 +45,7 @@ namespace Chilpass
             string masterPassword = EnterPasswordBox.Text;
             
             // generate a salt value
-            GenerateSalt();
+            byte[] theSalt = HashingManager.GenerateSalt();
 
             /*
              * Old Code
@@ -57,11 +57,11 @@ namespace Chilpass
              * New Code
              */
             // generate the encryption key value, this is derived
-            string encryptionKey = PBKDF2(masterPassword, salt, 10000);
+            string encryptionKey = HashingManager.PBKDF2(masterPassword, theSalt, 10000);
 
 
             // generate the hash for the password, store this in the file
-            string hashKey = PBKDF2(encryptionKey, salt, 1);
+            string hashKey = HashingManager.PBKDF2(encryptionKey, theSalt, 1);
 
             /*
              * End
@@ -71,24 +71,29 @@ namespace Chilpass
             masterPassword = null; // clear the cleartext password asap
 
             SQLiteConnection sqliteConnection;
-            sqliteConnection = Chilpass_Main.CreateConnection(filePath);
-            Chilpass_Main.CreateTable(sqliteConnection);
+            sqliteConnection = DatabaseManager.CreateConnection(filePath);
+            DatabaseManager.CreateTable(sqliteConnection);
 
             // Ensure data is encrpyted using encryption key
-            Chilpass_Main.InsertAuthData(sqliteConnection, NPF.GetSalt(), NPF.GetHash());
+            DatabaseManager.InsertAuthData(sqliteConnection, HashingManager.GetSalt(theSalt), hashKey);
 
             Chilpass_Main.OpenPasswordFileForm(encryptionKey, filePath);
 
             this.Close();
         }
 
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
         /*
          * HashPassword method takes a string cleartext password as a paramater.
          *  Iterations is set to a million to combat brute force attacks. Slow for the user and attackers.
          *  Uses SHA512 hashing algorithm
          *  Returns the hashed string
-         */ 
+         */
+        /*
         public static string PBKDF2(string password, int iterations)
         {
             // TODO: Leave a notifaction that it is computing hash or running so the user doesn't think its dying
@@ -117,12 +122,13 @@ namespace Chilpass
 
             return hashed;
         }
-
+        */
 
 
         /* 
          * Creates a pseudorandom salt to make a hash unique between like passwords
          */
+        /*
         private byte[] GenerateSalt()
         {
             // generate a salt
@@ -132,15 +138,14 @@ namespace Chilpass
             }
             return salt;
         }
-        
+        */
+
         /*
          * Close the current form.
          */
-        private void ExitButton_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
+
+        /*
         public static string GetHash()
         {
             return hashed;
@@ -151,5 +156,6 @@ namespace Chilpass
             string retVal = Encoding.Unicode.GetString(salt);
             return retVal;
         }
+        */
     }
 }
