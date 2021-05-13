@@ -41,8 +41,8 @@ namespace Chilpass
             string enteredPassword = passwordTextBox.Text;
 
             // encrypt the data in both of the feilds
-            string encryptedTitle = FileForm.Encrypt(encryptionKey, enteredTitle);
-            string encryptedPassword = FileForm.Encrypt(encryptionKey, enteredPassword);
+            string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, enteredTitle);
+            string encryptedPassword = EncryptionManager.Encrypt(encryptionKey, enteredPassword);
 
             // create a new SQLite connection the the file destinatiton
             SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);

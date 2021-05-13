@@ -12,6 +12,13 @@ using System.Collections;
 
 namespace Chilpass
 {
+    /*
+     * Creators: Jonathan Cho and Hans Wilter
+     * FileForm Partial Class
+     * Summary: Contains methods for editing password file's information.
+     *      Removing, Adding, and Viewing passwords.
+     * 
+     */
     public partial class FileForm : Form
     {
         // authorized view
@@ -85,8 +92,8 @@ namespace Chilpass
             
             for (int i = 0; i < encryptedArray.Count - 1; i++)
             {
-                string title = Decrypt(encryptionKey, (string)encryptedArray[i]);
-                string pass = Decrypt(encryptionKey, (string)encryptedArray[i+1]);
+                string title = EncryptionManager.Decrypt(encryptionKey, (string)encryptedArray[i]);
+                string pass = EncryptionManager.Decrypt(encryptionKey, (string)encryptedArray[i+1]);
 
                 ListViewItem item = new ListViewItem(title);
                 item.SubItems.Add(pass);
@@ -99,6 +106,10 @@ namespace Chilpass
         /*
          * Referenced: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.cryptostream?view=net-5.0
          */
+        /*
+         * -------------- NOTE ---------------
+         *      Moved to EncryptionManager
+         * -----------------------------------
         public static string Encrypt(string key, string value)
         {
             byte[] iv = new byte[16];
@@ -155,5 +166,6 @@ namespace Chilpass
                 }
             }
         }
+        */
     }
 }

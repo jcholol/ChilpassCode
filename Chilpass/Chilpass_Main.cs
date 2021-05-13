@@ -12,6 +12,12 @@ using System.Collections;
 
 namespace Chilpass
 {
+    /*
+     * Creators: Jonathan Cho and Hans Wilter
+     * Chilpass_Main Partial Class
+     * Summary: Contains methods for event triggers from the Chilpass_Main form.
+     * 
+     */
     public partial class Chilpass_Main : Form
     {
 
@@ -46,10 +52,10 @@ namespace Chilpass
 
         private void OpenPasswordFileButton_Click(object sender, EventArgs e)
         {
-            var fileContent = string.Empty;
+            //var fileContent = string.Empty;
             var filePath = string.Empty;
 
-            bool authorized = false;
+            //bool authorized = false;
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
@@ -64,11 +70,7 @@ namespace Chilpass
                 }
             }
 
-            if (filePath == "")
-            {
-
-            }
-            else
+            if (filePath != "")
             {
                 string oldSalt = String.Empty;
                 string oldHash = String.Empty;
@@ -88,7 +90,6 @@ namespace Chilpass
 
                 openPasswordFile.ShowDialog();
             }
-            
         }
 
         private void HelpButton_Click(object sender, EventArgs e)
@@ -106,18 +107,7 @@ namespace Chilpass
             this.Close();
         }
 
-        /*
-        * Open the FileForm form and close the current form.
-        */
-        public static void OpenPasswordFileForm(string encrypKey, string file)
-        {
-            var NewPasswordFile = Application.OpenForms["FileForm"];
-            if (NewPasswordFile == null)
-            {
-                NewPasswordFile = new FileForm(encrypKey, file);
-            }
-            NewPasswordFile.ShowDialog();
-        }
+       
 
 
         private void GeneratePasswordButton_Click(object sender, EventArgs e)
@@ -131,12 +121,31 @@ namespace Chilpass
 
         }
 
+        /*
+        
+         * -------------- NOTE ---------------
+         *         Moved to FormManager
+         * -----------------------------------
+
+        // Open the FileForm form and close the current form.
+        
+        public static void OpenPasswordFileForm(string encrypKey, string file)
+        {
+            var NewPasswordFile = Application.OpenForms["FileForm"];
+            if (NewPasswordFile == null)
+            {
+                NewPasswordFile = new FileForm(encrypKey, file);
+            }
+            NewPasswordFile.ShowDialog();
+        }
+        */
 
         /*
-         * ----------------------------SQLITE METHODS-------------------------------------
-         *  Methods derived and altered form: https://www.codeguru.com/csharp/.net/net_data/using-sqlite-in-a-c-application.html
-         */
-        /*
+         * -------------- NOTE ---------------
+         *      Moved to DatabaseManager
+         * -----------------------------------
+         * 
+         * 
         public static SQLiteConnection CreateConnection(string filepath)
         {
             SQLiteConnection sqliteConneciton;

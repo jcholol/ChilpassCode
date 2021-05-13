@@ -75,9 +75,9 @@ namespace Chilpass
             DatabaseManager.CreateTable(sqliteConnection);
 
             // Ensure data is encrpyted using encryption key
-            DatabaseManager.InsertAuthData(sqliteConnection, HashingManager.GetSalt(theSalt), hashKey);
+            DatabaseManager.InsertAuthData(sqliteConnection, HashingManager.GetSaltByteToString(theSalt), hashKey);
 
-            Chilpass_Main.OpenPasswordFileForm(encryptionKey, filePath);
+            FormManager.OpenPasswordFileForm(encryptionKey, filePath);
 
             this.Close();
         }
@@ -87,7 +87,13 @@ namespace Chilpass
             this.Close();
         }
 
+
         /*
+         * -------------- NOTE ---------------
+         *      Moved to HashingManager
+         * -----------------------------------
+         * 
+         * 
          * HashPassword method takes a string cleartext password as a paramater.
          *  Iterations is set to a million to combat brute force attacks. Slow for the user and attackers.
          *  Uses SHA512 hashing algorithm

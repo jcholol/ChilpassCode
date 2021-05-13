@@ -6,6 +6,12 @@ using System.Security.Cryptography;
 
 namespace Chilpass
 {
+    /*
+     * Creators: Jonathan Cho and Hans Wilter
+     * HashingManager Class
+     * Summary: Contains static methods for hashing functionality. PBKDF2 key derivation and salt generation.
+     * 
+     */
     class HashingManager
     {
         /*
@@ -43,7 +49,7 @@ namespace Chilpass
             return salt;
         }
 
-        public static string GetSalt(byte[] theSalt)
+        public static string GetSaltByteToString(byte[] theSalt)
         {
             string retVal = Encoding.Unicode.GetString(theSalt);
             return retVal;

@@ -6,14 +6,26 @@ using System.Collections;
 
 namespace Chilpass
 {
+    /*
+     * Creators: Jonathan Cho and Hans Wilter
+     * DatabaseManager Class
+     * Summary: Contains static methods for database functionality. Connections, Querries, and Management.
+     * 
+     * Functions and methods derived + altered from:
+     * https://www.codeguru.com/csharp/.net/net_data/using-sqlite-in-a-c-application.html
+     */
     class DatabaseManager
     {
         /*
-         * ----------------------------SQLITE METHODS-------------------------------------
-         *  Methods derived and altered form: https://www.codeguru.com/csharp/.net/net_data/using-sqlite-in-a-c-application.html
+         * CreateConnection(string)
+         * Paramaters: string (filepath)
+         *      Indicates the filepath in the computer system with which to initiate a SQLIte Connection.
+         * Summary: 
+         *      Creates a connection with the file location passed in as an argument and returns the connection.
          */
         public static SQLiteConnection CreateConnection(string filepath)
         {
+            // create connection to the filepath
             SQLiteConnection sqliteConneciton;
             sqliteConneciton = new SQLiteConnection("Data Source=" + filepath + ";Version=3;New=True;Compress=True;");
             try
@@ -21,22 +33,42 @@ namespace Chilpass
                 sqliteConneciton.Open();
                 System.Diagnostics.Debug.WriteLine("Connection Established: " + filepath);
             }
-            catch (Exception e)
+            catch (Exception e) // connection failed message
             {
                 System.Diagnostics.Debug.WriteLine("Connection Failed: " + filepath);
             }
             return sqliteConneciton;
         }
 
+        /*
+         * CreateTable(SQLiteConnection)
+         * Paramaters: SQLiteConnection (sqliteConnection)
+         *      Indicates the SQLiteConnection to Create the database tables in.
+         * Summary: 
+         *      Creates the INFO and ENTRY tables in the SQLite database file passed in through SQLiteConnection.
+         */
         public static void CreateTable(SQLiteConnection sqliteConnection)
         {
+            // create SQLite command
             SQLiteCommand sqliteCommand;
+            
+            // SQLite string for creating the table INFO
             string infoTable = "CREATE TABLE INFO (Salt VARCHAR(20), Master VARCHAR(20))";
+
+            // SQLite string for creating the table ENTRY
             string entryTable = "CREATE TABLE ENTRY (Title VARCHAR(20), Password VARCHAR(20))";
+
+            // add a command through the connection
             sqliteCommand = sqliteConnection.CreateCommand();
+            
+            // add info table creation to command
             sqliteCommand.CommandText = infoTable;
+            // execute command
             sqliteCommand.ExecuteNonQuery();
+            
+            // add entry table creation to command
             sqliteCommand.CommandText = entryTable;
+            // execute command
             sqliteCommand.ExecuteNonQuery();
         }
 
