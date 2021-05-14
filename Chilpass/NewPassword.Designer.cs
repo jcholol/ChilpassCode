@@ -84,6 +84,7 @@ namespace Chilpass
             // 
             // NewPassword
             // 
+            this.AcceptButton = this.submitButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(249, 189);
@@ -92,6 +93,7 @@ namespace Chilpass
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.KeyPreview = true;
             this.Name = "NewPassword";
             this.Text = "NewPassword";
             this.ResumeLayout(false);
