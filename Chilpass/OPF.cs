@@ -67,14 +67,19 @@ namespace Chilpass
                 }
 
                 openPasswordFile.ShowDialog();
+                Close();
             }
             else
             {
                 // password incorrect
                 System.Diagnostics.Debug.WriteLine("Wrong password!");
+                const string msg = "The password entered is incorrect.";
+                const string boxTitle = "Error.";
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
 
-            Close();
+            
         }
     }
 }
