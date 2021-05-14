@@ -130,6 +130,23 @@ namespace Chilpass
             return myreader;
         }
 
+        public static string CheckIfExists(SQLiteConnection sqliteConnection, string title)
+        {
+            SQLiteDataReader sqliteDataReader;
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            sqliteCommand.CommandText = "SELECT Title FROM ENTRY WHERE Title = '" + title + "';";
+
+            string myreader = "";
+            sqliteDataReader = sqliteCommand.ExecuteReader();
+            while (sqliteDataReader.Read())
+            {
+                myreader = sqliteDataReader.GetString(0);
+                System.Diagnostics.Debug.WriteLine(myreader);
+            }
+            return myreader;
+        }
+
         public static ArrayList ReadEntries(SQLiteConnection sqliteConnection)
         {
             ArrayList array = new ArrayList();
@@ -149,5 +166,6 @@ namespace Chilpass
             sqliteConnection.Close();
             return array;
         }
+
     }
 }

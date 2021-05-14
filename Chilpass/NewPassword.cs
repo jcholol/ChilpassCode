@@ -36,19 +36,31 @@ namespace Chilpass
          */
         private void submitButton_Click(object sender, EventArgs e)
         {
+            // create a new SQLite connection the the file destinatiton
+            SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
+
             // read data from the title and password text box
             string enteredTitle = titleTextBox.Text;
             string enteredPassword = passwordTextBox.Text;
+
+            
 
             // encrypt the data in both of the feilds
             string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, enteredTitle);
             string encryptedPassword = EncryptionManager.Encrypt(encryptionKey, enteredPassword);
 
-            // create a new SQLite connection the the file destinatiton
-            SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
+            string data = DatabaseManager.CheckIfExists(connection, encryptedTitle);
 
-            // insert a new entry into the password file
-            DatabaseManager.InsertEntry(connection, encryptedTitle, encryptedPassword);
+            if (data == "")
+            {
+                // insert a new entry into the password file
+                DatabaseManager.InsertEntry(connection, encryptedTitle, encryptedPassword);
+            }
+            else
+            {
+                // ERROR an entry with that title already exists
+                System.Diagnostics.Debug.WriteLine("Entry already exists");
+            }
             
             // close the SQLite connection 
             connection.Close();
