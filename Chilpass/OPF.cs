@@ -58,6 +58,7 @@ namespace Chilpass
 
             if (authorized)
             {
+                
                 System.Diagnostics.Debug.WriteLine("Correct Password, granting access...");
                 // decryption time
                 var openPasswordFile = Application.OpenForms["FileForm"];

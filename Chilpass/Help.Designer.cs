@@ -52,10 +52,11 @@ namespace Chilpass
             this.documentationLinkLabel.AutoSize = true;
             this.documentationLinkLabel.Location = new System.Drawing.Point(12, 361);
             this.documentationLinkLabel.Name = "documentationLinkLabel";
-            this.documentationLinkLabel.Size = new System.Drawing.Size(90, 15);
+            this.documentationLinkLabel.Size = new System.Drawing.Size(102, 15);
             this.documentationLinkLabel.TabIndex = 3;
             this.documentationLinkLabel.TabStop = true;
-            this.documentationLinkLabel.Text = "Documentation";
+            this.documentationLinkLabel.Text = "Design Document";
+            this.documentationLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.documentationLinkLabel_LinkClicked);
             // 
             // howToLabel
             // 
@@ -89,12 +90,14 @@ namespace Chilpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.exitButton;
             this.ClientSize = new System.Drawing.Size(512, 388);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.newPasswordFileField);
             this.Controls.Add(this.howToLabel);
             this.Controls.Add(this.documentationLinkLabel);
             this.Controls.Add(this.exitButton);
+            this.KeyPreview = true;
             this.Name = "Help";
             this.Text = "Help";
             this.ResumeLayout(false);

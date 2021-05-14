@@ -38,16 +38,13 @@ namespace Chilpass
             {
                 //System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
                 filepath = saveDatabaseFile.FileName;
+                var NewPasswordFile = Application.OpenForms["NPF"];
+                if (NewPasswordFile == null)
+                {
+                    NewPasswordFile = new NPF(filepath);
+                }
+                NewPasswordFile.ShowDialog();
             }
-
-            var NewPasswordFile = Application.OpenForms["NPF"];
-            if (NewPasswordFile == null)
-            {
-                NewPasswordFile = new NPF(filepath);
-            }
-            NewPasswordFile.ShowDialog();
-
-            
         }
 
         private void OpenPasswordFileButton_Click(object sender, EventArgs e)

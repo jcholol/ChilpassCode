@@ -137,6 +137,7 @@ namespace Chilpass
             this.Controls.Add(this.GeneratePasswordButton);
             this.Controls.Add(this.OpenPasswordFileButton);
             this.Controls.Add(this.NewPasswordFileButton);
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(1920, 1080);
             this.MinimumSize = new System.Drawing.Size(854, 480);
             this.Name = "Chilpass_Main";
