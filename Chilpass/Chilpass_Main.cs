@@ -38,12 +38,16 @@ namespace Chilpass
             {
                 //System.IO.FileStream myStream = (System.IO.FileStream)saveDatabaseFile.OpenFile();
                 filepath = saveDatabaseFile.FileName;
+
+                FormManager.OpenNPF(filepath);
+                /*
                 var NewPasswordFile = Application.OpenForms["NPF"];
                 if (NewPasswordFile == null)
                 {
                     NewPasswordFile = new NPF(filepath);
                 }
                 NewPasswordFile.ShowDialog();
+                */
             }
         }
 
@@ -78,6 +82,8 @@ namespace Chilpass
                 oldHash = DatabaseManager.ReadHash(sqliteConnection);
                 sqliteConnection.Close();
 
+                FormManager.OpenOPF(filePath, oldSalt, oldHash);
+                /*
                 var openPasswordFile = Application.OpenForms["OPF"];
                 if (openPasswordFile == null)
                 {
@@ -86,17 +92,21 @@ namespace Chilpass
                 }
 
                 openPasswordFile.ShowDialog();
+                */
             }
         }
 
         private void HelpButton_Click(object sender, EventArgs e)
         {
+            FormManager.OpenHelpForm();
+            /*
             var help = Application.OpenForms["Help"];
             if (help == null)
             {
                 help = new Help();
             }
             help.ShowDialog();
+            */
         }
 
         private void ExitButton_Click(object sender, EventArgs e)

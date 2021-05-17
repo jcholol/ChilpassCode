@@ -14,6 +14,8 @@ namespace Chilpass
         private string file;
         private byte[] salt;
         private string hash;
+        private bool passwordShowing = false;
+
         public OPF()
         {
             InitializeComponent();
@@ -60,14 +62,18 @@ namespace Chilpass
             {
                 
                 System.Diagnostics.Debug.WriteLine("Correct Password, granting access...");
+
+                FormManager.OpenPasswordFileForm(encKey, file);
+                /*
                 // decryption time
                 var openPasswordFile = Application.OpenForms["FileForm"];
                 if (openPasswordFile == null)
                 {
                     openPasswordFile = new FileForm(encKey, file);
                 }
-
                 openPasswordFile.ShowDialog();
+                */
+
                 Close();
             }
             else
@@ -81,6 +87,20 @@ namespace Chilpass
             }
 
             
+        }
+
+        private void showPasswordButton_Click(object sender, EventArgs e)
+        {
+            if (passwordShowing)
+            {
+                EnterPasswordBox.PasswordChar = '*';
+                passwordShowing = false;
+            }
+            else
+            {
+                EnterPasswordBox.PasswordChar = '\0';
+                passwordShowing = true;
+            }
         }
     }
 }

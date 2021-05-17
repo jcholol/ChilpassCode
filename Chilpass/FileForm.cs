@@ -103,6 +103,11 @@ namespace Chilpass
             sqliteConnection.Close();
         }
 
+        private void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         /*
          * Referenced: https://docs.microsoft.com/en-us/dotnet/api/system.security.cryptography.cryptostream?view=net-5.0
          */

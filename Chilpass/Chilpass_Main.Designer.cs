@@ -48,7 +48,7 @@ namespace Chilpass
             this.NewPasswordFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.NewPasswordFileButton.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NewPasswordFileButton.ForeColor = System.Drawing.Color.White;
-            this.NewPasswordFileButton.Location = new System.Drawing.Point(299, 159);
+            this.NewPasswordFileButton.Location = new System.Drawing.Point(202, 167);
             this.NewPasswordFileButton.Name = "NewPasswordFileButton";
             this.NewPasswordFileButton.Size = new System.Drawing.Size(251, 39);
             this.NewPasswordFileButton.TabIndex = 0;
@@ -65,7 +65,7 @@ namespace Chilpass
             this.OpenPasswordFileButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenPasswordFileButton.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.OpenPasswordFileButton.ForeColor = System.Drawing.Color.White;
-            this.OpenPasswordFileButton.Location = new System.Drawing.Point(299, 223);
+            this.OpenPasswordFileButton.Location = new System.Drawing.Point(202, 231);
             this.OpenPasswordFileButton.Name = "OpenPasswordFileButton";
             this.OpenPasswordFileButton.Size = new System.Drawing.Size(251, 39);
             this.OpenPasswordFileButton.TabIndex = 1;
@@ -82,7 +82,7 @@ namespace Chilpass
             this.GeneratePasswordButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.GeneratePasswordButton.Font = new System.Drawing.Font("Microsoft Tai Le", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.GeneratePasswordButton.ForeColor = System.Drawing.Color.White;
-            this.GeneratePasswordButton.Location = new System.Drawing.Point(299, 286);
+            this.GeneratePasswordButton.Location = new System.Drawing.Point(202, 294);
             this.GeneratePasswordButton.Name = "GeneratePasswordButton";
             this.GeneratePasswordButton.Size = new System.Drawing.Size(251, 39);
             this.GeneratePasswordButton.TabIndex = 2;
@@ -93,7 +93,7 @@ namespace Chilpass
             // HelpButton
             // 
             this.HelpButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.HelpButton.Location = new System.Drawing.Point(387, 344);
+            this.HelpButton.Location = new System.Drawing.Point(290, 366);
             this.HelpButton.Name = "HelpButton";
             this.HelpButton.Size = new System.Drawing.Size(75, 23);
             this.HelpButton.TabIndex = 3;
@@ -104,7 +104,7 @@ namespace Chilpass
             // ExitButton
             // 
             this.ExitButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ExitButton.Location = new System.Drawing.Point(387, 373);
+            this.ExitButton.Location = new System.Drawing.Point(290, 395);
             this.ExitButton.Name = "ExitButton";
             this.ExitButton.Size = new System.Drawing.Size(75, 23);
             this.ExitButton.TabIndex = 4;
@@ -117,7 +117,7 @@ namespace Chilpass
             this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(309, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(212, 20);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(232, 120);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -130,7 +130,7 @@ namespace Chilpass
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(838, 441);
+            this.ClientSize = new System.Drawing.Size(644, 456);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ExitButton);
             this.Controls.Add(this.HelpButton);
@@ -138,9 +138,10 @@ namespace Chilpass
             this.Controls.Add(this.OpenPasswordFileButton);
             this.Controls.Add(this.NewPasswordFileButton);
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(1920, 1080);
-            this.MinimumSize = new System.Drawing.Size(854, 480);
+            this.MaximumSize = new System.Drawing.Size(660, 495);
+            this.MinimumSize = new System.Drawing.Size(660, 495);
             this.Name = "Chilpass_Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChilPass";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

@@ -67,6 +67,9 @@ namespace Chilpass
                 return;
             }
 
+
+
+
             // encrypt the data in both of the feilds
             string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, enteredTitle);
             string encryptedPassword = EncryptionManager.Encrypt(encryptionKey, enteredPassword);

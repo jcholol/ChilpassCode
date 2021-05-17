@@ -39,7 +39,7 @@ namespace Chilpass
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(397, 349);
+            this.exitButton.Location = new System.Drawing.Point(429, 349);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(103, 27);
             this.exitButton.TabIndex = 2;
@@ -72,7 +72,7 @@ namespace Chilpass
             // 
             this.newPasswordFileField.Location = new System.Drawing.Point(12, 47);
             this.newPasswordFileField.Name = "newPasswordFileField";
-            this.newPasswordFileField.Size = new System.Drawing.Size(488, 84);
+            this.newPasswordFileField.Size = new System.Drawing.Size(520, 84);
             this.newPasswordFileField.TabIndex = 5;
             this.newPasswordFileField.Text = resources.GetString("newPasswordFileField.Text");
             // 
@@ -91,14 +91,17 @@ namespace Chilpass
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.exitButton;
-            this.ClientSize = new System.Drawing.Size(512, 388);
+            this.ClientSize = new System.Drawing.Size(544, 381);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.newPasswordFileField);
             this.Controls.Add(this.howToLabel);
             this.Controls.Add(this.documentationLinkLabel);
             this.Controls.Add(this.exitButton);
             this.KeyPreview = true;
+            this.MaximumSize = new System.Drawing.Size(560, 420);
+            this.MinimumSize = new System.Drawing.Size(560, 420);
             this.Name = "Help";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Help";
             this.ResumeLayout(false);
             this.PerformLayout();

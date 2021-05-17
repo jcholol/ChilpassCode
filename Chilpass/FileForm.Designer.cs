@@ -44,13 +44,14 @@ namespace Chilpass
             this.Password});
             this.listView.FullRowSelect = true;
             this.listView.HideSelection = false;
-            this.listView.Location = new System.Drawing.Point(53, 112);
+            this.listView.Location = new System.Drawing.Point(73, 97);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
             this.listView.Size = new System.Drawing.Size(404, 253);
             this.listView.TabIndex = 7;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.SelectedIndexChanged += new System.EventHandler(this.listView_SelectedIndexChanged);
             // 
             // Title
             // 
@@ -65,7 +66,7 @@ namespace Chilpass
             // RemovePasswordButton
             // 
             this.RemovePasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RemovePasswordButton.Location = new System.Drawing.Point(295, 37);
+            this.RemovePasswordButton.Location = new System.Drawing.Point(315, 39);
             this.RemovePasswordButton.Name = "RemovePasswordButton";
             this.RemovePasswordButton.Size = new System.Drawing.Size(130, 23);
             this.RemovePasswordButton.TabIndex = 5;
@@ -76,7 +77,7 @@ namespace Chilpass
             // NewPasswordButton
             // 
             this.NewPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.NewPasswordButton.Location = new System.Drawing.Point(74, 37);
+            this.NewPasswordButton.Location = new System.Drawing.Point(94, 39);
             this.NewPasswordButton.Name = "NewPasswordButton";
             this.NewPasswordButton.Size = new System.Drawing.Size(147, 23);
             this.NewPasswordButton.TabIndex = 4;
@@ -88,11 +89,14 @@ namespace Chilpass
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(504, 411);
+            this.ClientSize = new System.Drawing.Size(544, 381);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.RemovePasswordButton);
             this.Controls.Add(this.NewPasswordButton);
+            this.MaximumSize = new System.Drawing.Size(560, 420);
+            this.MinimumSize = new System.Drawing.Size(560, 420);
             this.Name = "FileForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password File";
             this.ResumeLayout(false);
 

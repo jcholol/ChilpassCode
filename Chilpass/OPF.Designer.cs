@@ -29,15 +29,17 @@ namespace Chilpass
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.EnterPasswordBox = new System.Windows.Forms.TextBox();
+            this.showPasswordButton = new System.Windows.Forms.Button();
+            this.showPasswordToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button1.Location = new System.Drawing.Point(89, 93);
+            this.button1.Location = new System.Drawing.Point(76, 88);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 28);
             this.button1.TabIndex = 5;
@@ -47,9 +49,8 @@ namespace Chilpass
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(67, 41);
+            this.label1.Location = new System.Drawing.Point(56, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(126, 15);
             this.label1.TabIndex = 4;
@@ -58,25 +59,38 @@ namespace Chilpass
             // 
             // EnterPasswordBox
             // 
-            this.EnterPasswordBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.EnterPasswordBox.Location = new System.Drawing.Point(67, 64);
+            this.EnterPasswordBox.Location = new System.Drawing.Point(56, 59);
             this.EnterPasswordBox.Name = "EnterPasswordBox";
             this.EnterPasswordBox.PasswordChar = '*';
             this.EnterPasswordBox.Size = new System.Drawing.Size(128, 23);
             this.EnterPasswordBox.TabIndex = 3;
-            this.EnterPasswordBox.Text = "Enter Password...";
+            // 
+            // showPasswordButton
+            // 
+            this.showPasswordButton.Location = new System.Drawing.Point(202, 59);
+            this.showPasswordButton.Name = "showPasswordButton";
+            this.showPasswordButton.Size = new System.Drawing.Size(25, 23);
+            this.showPasswordButton.TabIndex = 9;
+            this.showPasswordButton.Text = "~";
+            this.showPasswordToolTip.SetToolTip(this.showPasswordButton, "Toggle Password Visibility");
+            this.showPasswordButton.UseVisualStyleBackColor = true;
+            this.showPasswordButton.Click += new System.EventHandler(this.showPasswordButton_Click);
             // 
             // OPF
             // 
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(263, 167);
+            this.ClientSize = new System.Drawing.Size(240, 153);
+            this.Controls.Add(this.showPasswordButton);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EnterPasswordBox);
             this.KeyPreview = true;
+            this.MaximumSize = new System.Drawing.Size(256, 192);
+            this.MinimumSize = new System.Drawing.Size(256, 192);
             this.Name = "OPF";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Open Password File";
             this.Load += new System.EventHandler(this.OPF_Load);
             this.ResumeLayout(false);
@@ -89,5 +103,7 @@ namespace Chilpass
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox EnterPasswordBox;
+        private System.Windows.Forms.Button showPasswordButton;
+        private System.Windows.Forms.ToolTip showPasswordToolTip;
     }
 }

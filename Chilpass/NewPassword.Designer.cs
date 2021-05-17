@@ -40,7 +40,7 @@ namespace Chilpass
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 41);
+            this.label1.Location = new System.Drawing.Point(23, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 15);
             this.label1.TabIndex = 0;
@@ -50,7 +50,7 @@ namespace Chilpass
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 95);
+            this.label2.Location = new System.Drawing.Point(23, 77);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(90, 15);
             this.label2.TabIndex = 1;
@@ -59,7 +59,7 @@ namespace Chilpass
             // titleTextBox
             // 
             this.titleTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.titleTextBox.Location = new System.Drawing.Point(128, 33);
+            this.titleTextBox.Location = new System.Drawing.Point(124, 15);
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new System.Drawing.Size(100, 23);
             this.titleTextBox.TabIndex = 2;
@@ -67,14 +67,14 @@ namespace Chilpass
             // passwordTextBox
             // 
             this.passwordTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.passwordTextBox.Location = new System.Drawing.Point(128, 87);
+            this.passwordTextBox.Location = new System.Drawing.Point(124, 69);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(100, 23);
             this.passwordTextBox.TabIndex = 3;
             // 
             // submitButton
             // 
-            this.submitButton.Location = new System.Drawing.Point(83, 141);
+            this.submitButton.Location = new System.Drawing.Point(83, 118);
             this.submitButton.Name = "submitButton";
             this.submitButton.Size = new System.Drawing.Size(75, 23);
             this.submitButton.TabIndex = 4;
@@ -87,14 +87,17 @@ namespace Chilpass
             this.AcceptButton = this.submitButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 189);
+            this.ClientSize = new System.Drawing.Size(240, 153);
             this.Controls.Add(this.submitButton);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
+            this.MaximumSize = new System.Drawing.Size(256, 192);
+            this.MinimumSize = new System.Drawing.Size(256, 192);
             this.Name = "NewPassword";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "NewPassword";
             this.ResumeLayout(false);
             this.PerformLayout();

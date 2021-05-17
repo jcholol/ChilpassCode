@@ -18,6 +18,8 @@ namespace Chilpass
         private static byte[] salt = new byte[128 / 8];
         private string filePath;
 
+        private bool passwordShowing = false;
+
         public NPF()
         {
             InitializeComponent();
@@ -43,9 +45,32 @@ namespace Chilpass
         {
             // get the enetered password
             string masterPassword = EnterPasswordBox.Text;
-            
+            string passwordConfirmation = ConfirmationBox.Text;
             // generate a salt value
             byte[] theSalt = HashingManager.GenerateSalt();
+
+            if (masterPassword == "")
+            {
+                const string msg = "The master password field is empty, please enter a valid password!";
+                const string boxTitle = "Error.";
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            if (!masterPassword.Equals(passwordConfirmation))
+            {
+                const string msg = "The passwords do not match!";
+                const string boxTitle = "Error.";
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+
+            // confirm password matches
+
+
 
             /*
              * Old Code
@@ -80,6 +105,22 @@ namespace Chilpass
             FormManager.OpenPasswordFileForm(encryptionKey, filePath);
 
             this.Close();
+        }
+
+        private void showPasswordButton_Click(object sender, EventArgs e)
+        {
+            if (passwordShowing)
+            {
+                EnterPasswordBox.PasswordChar = '*';
+                ConfirmationBox.PasswordChar = '*';
+                passwordShowing = false;
+            }
+            else
+            {
+                EnterPasswordBox.PasswordChar = '\0';
+                ConfirmationBox.PasswordChar = '\0';
+                passwordShowing = true;
+            }
         }
 
 
