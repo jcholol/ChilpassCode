@@ -119,7 +119,7 @@ namespace Chilpass
 
         private void GeneratePasswordButton_Click(object sender, EventArgs e)
         {
-
+            FormManager.OpenGeneratePasswordForm();
         }
 
 

@@ -68,5 +68,15 @@ namespace Chilpass
             }
             NewPassword.ShowDialog();
         }
+
+        public static void OpenGeneratePasswordForm()
+        {
+            var generatePassword = Application.OpenForms["GeneratePasswordForm"];
+            if (generatePassword == null)
+            {
+                generatePassword = new GeneratePasswordForm();
+            }
+            generatePassword.ShowDialog();
+        }
     }
 }
