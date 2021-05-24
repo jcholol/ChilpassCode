@@ -7,10 +7,36 @@ namespace Chilpass
 {
     class PasswordGenManager
     {
-        public static string GeneratePassword(int size)
+        public static string GeneratePassword(int size, bool hasLower, bool hasUpper, bool hasDigits, bool hasSpecialChar)
         {
+            string lower = "abcdefghijklmnopqrstuvwxyz";
+            string upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string digits = "1234567890";
+            string specialChar = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
 
-            string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890+/";
+            string valid = "";
+
+            if (hasLower)
+            {
+                valid += lower;
+            }
+
+            if (hasUpper)
+            {
+                valid += upper;
+            }
+
+            if (hasDigits)
+            {
+                valid += digits;
+            }
+
+            if (hasSpecialChar)
+            {
+                valid += specialChar;
+            }
+            
+
             StringBuilder temp = new StringBuilder();
             using (RNGCryptoServiceProvider service = new RNGCryptoServiceProvider())
             {

@@ -12,14 +12,50 @@ namespace Chilpass
 {
     public partial class GeneratePasswordForm : Form
     {
+        bool[] chars = new bool[4];
+
         public GeneratePasswordForm()
         {
             InitializeComponent();
             sizeTrackBar.ValueChanged += new System.EventHandler(TrackBar_ValueChanged);
             this.Controls.Add(this.sizeTrackBar);
+            SetTrue(0);
+            SetTrue(1);
+            SetTrue(2);
+            SetTrue(3);
+            checkedListBoxPassword.ItemCheck += checkedListBoxPassword_ItemChecked;
         }
 
 
+        private void checkedListBoxPassword_ItemChecked(object sender, ItemCheckEventArgs e)
+        {
+           
+            if (NumberChecked() == 1 && e.NewValue == CheckState.Unchecked)
+            {
+                e.NewValue = CheckState.Checked;
+            }
+        }
+
+        private void SetTrue(int index)
+        {
+            checkedListBoxPassword.SetItemChecked(index, true);
+            
+        }
+
+        private int NumberChecked()
+        {
+            int numberChecked = 0;
+            for (int i = 0; i < checkedListBoxPassword.Items.Count; i++)
+            {
+                if (checkedListBoxPassword.GetItemChecked(i) == true)
+                {
+                    numberChecked++;
+                }
+            }
+            return numberChecked;
+        }
+
+        
 
         private void TrackBar_ValueChanged(object sender, System.EventArgs e)
         {
@@ -42,9 +78,26 @@ namespace Chilpass
             }
 
             trackBarValueLabel.Text = "Size: " + (size.ToString()) + "\n" + message;
-            passwordTextBox.Text = PasswordGenManager.GeneratePassword(size);
+
+            UpdateChecked();
+            passwordTextBox.Text = PasswordGenManager.GeneratePassword(size, chars[0], chars[1], chars[2], chars[3]);
 
         }
+
+        private void UpdateChecked()
+        {
+            for (int i = 0; i < checkedListBoxPassword.Items.Count; i++)
+            {
+                if (checkedListBoxPassword.GetItemChecked(i) == true)
+                {
+                    chars[i] = true;
+                }
+                else
+                {
+                    chars[i] = false;
+                }
+            }
+        } 
 
         private void copyButton_Click(object sender, EventArgs e)
         {

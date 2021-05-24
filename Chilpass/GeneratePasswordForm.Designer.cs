@@ -34,12 +34,13 @@ namespace Chilpass
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.copyButton = new System.Windows.Forms.Button();
             this.linkLabelPassword = new System.Windows.Forms.LinkLabel();
+            this.checkedListBoxPassword = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.sizeTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // sizeTrackBar
             // 
-            this.sizeTrackBar.Location = new System.Drawing.Point(12, 57);
+            this.sizeTrackBar.Location = new System.Drawing.Point(12, 135);
             this.sizeTrackBar.Maximum = 64;
             this.sizeTrackBar.Minimum = 1;
             this.sizeTrackBar.Name = "sizeTrackBar";
@@ -50,7 +51,7 @@ namespace Chilpass
             // trackBarValueLabel
             // 
             this.trackBarValueLabel.AutoSize = true;
-            this.trackBarValueLabel.Location = new System.Drawing.Point(12, 96);
+            this.trackBarValueLabel.Location = new System.Drawing.Point(12, 174);
             this.trackBarValueLabel.Name = "trackBarValueLabel";
             this.trackBarValueLabel.Size = new System.Drawing.Size(33, 15);
             this.trackBarValueLabel.TabIndex = 1;
@@ -58,7 +59,7 @@ namespace Chilpass
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(12, 12);
+            this.passwordTextBox.Location = new System.Drawing.Point(12, 90);
             this.passwordTextBox.Multiline = true;
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(225, 39);
@@ -66,7 +67,7 @@ namespace Chilpass
             // 
             // copyButton
             // 
-            this.copyButton.Location = new System.Drawing.Point(243, 12);
+            this.copyButton.Location = new System.Drawing.Point(243, 90);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(53, 28);
             this.copyButton.TabIndex = 3;
@@ -77,7 +78,7 @@ namespace Chilpass
             // linkLabelPassword
             // 
             this.linkLabelPassword.AutoSize = true;
-            this.linkLabelPassword.Location = new System.Drawing.Point(139, 96);
+            this.linkLabelPassword.Location = new System.Drawing.Point(143, 183);
             this.linkLabelPassword.Name = "linkLabelPassword";
             this.linkLabelPassword.Size = new System.Drawing.Size(159, 15);
             this.linkLabelPassword.TabIndex = 4;
@@ -85,11 +86,28 @@ namespace Chilpass
             this.linkLabelPassword.Text = "How Secure Is My Password?";
             this.linkLabelPassword.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPassword_LinkClicked);
             // 
+            // checkedListBoxPassword
+            // 
+            this.checkedListBoxPassword.BackColor = System.Drawing.SystemColors.Menu;
+            this.checkedListBoxPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.checkedListBoxPassword.CheckOnClick = true;
+            this.checkedListBoxPassword.FormattingEnabled = true;
+            this.checkedListBoxPassword.Items.AddRange(new object[] {
+            "Lower Case Latters (a-z)",
+            "Upper Case Letters (A-Z)",
+            "Digits (0-9)",
+            "Special Characters (?!#{})"});
+            this.checkedListBoxPassword.Location = new System.Drawing.Point(12, 12);
+            this.checkedListBoxPassword.Name = "checkedListBoxPassword";
+            this.checkedListBoxPassword.Size = new System.Drawing.Size(177, 72);
+            this.checkedListBoxPassword.TabIndex = 13;
+            // 
             // GeneratePasswordForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 139);
+            this.ClientSize = new System.Drawing.Size(310, 214);
+            this.Controls.Add(this.checkedListBoxPassword);
             this.Controls.Add(this.linkLabelPassword);
             this.Controls.Add(this.copyButton);
             this.Controls.Add(this.passwordTextBox);
@@ -111,5 +129,6 @@ namespace Chilpass
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Button copyButton;
         private System.Windows.Forms.LinkLabel linkLabelPassword;
+        private System.Windows.Forms.CheckedListBox checkedListBoxPassword;
     }
 }

@@ -40,14 +40,6 @@ namespace Chilpass
                 filepath = saveDatabaseFile.FileName;
 
                 FormManager.OpenNPF(filepath);
-                /*
-                var NewPasswordFile = Application.OpenForms["NPF"];
-                if (NewPasswordFile == null)
-                {
-                    NewPasswordFile = new NPF(filepath);
-                }
-                NewPasswordFile.ShowDialog();
-                */
             }
         }
 
