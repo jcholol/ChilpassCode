@@ -17,33 +17,58 @@ namespace Chilpass
      * FileForm Partial Class
      * Summary: Contains methods for editing password file's information.
      *      Removing, Adding, and Viewing passwords.
-     * 
+     * FileForm is an authorized view, meaning that if a user has gotten to this stage they
+     * have entered the masterpassword associated with the file and aare now authorized to 
+     * view the file's contents.
      */
     public partial class FileForm : Form
     {
         // authorized view
         private string encryptionKey = String.Empty;
         private string filepath = String.Empty;
+
+        // stores entries
         private ArrayList encryptedArray;
 
+
+        /*
+         * Default Constructor
+         */
         public FileForm()
         {
             InitializeComponent();
         }
 
+        /*
+         * FileFomr(string, string)
+         * Paramaters: 
+         *      string (encKey) - Enckey passed from previous form for use in Decrypting.
+         *      string (file) - The file currently accessed.
+         */
         public FileForm(string encKey, string file)
         {
             filepath = file;
             encryptionKey = encKey;
             InitializeComponent();
+            // loads the listviewtree with entries on load
             LoadListView();
         }
 
+        /*
+         * RemovePasswordButton_Click
+         * On the event that the RemovePasswordButton is clicked, this method
+         * is called.
+         * Removes the entry that the user selected from the ListViewTree. If 
+         * no entry is selected, prompt the user to select an entry. On the event that
+         * a user has selected an entry, confirm their choice for deletion.
+         */
         private void RemovePasswordButton_Click(object sender, EventArgs e)
         {
+            // ensure the user has selected an item
             if (listView.SelectedItems.Count > 0)
             {
-                string title = listView.SelectedItems[0].Text;
+                //string title = listView.SelectedItems[0].Text;
+                
                 int index = listView.Items.IndexOf(listView.SelectedItems[0]);
                 index = index * 2;
                 System.Diagnostics.Debug.WriteLine("Index: " + index);
@@ -66,6 +91,7 @@ namespace Chilpass
             }
             else
             {
+                // prompt user to select an item through a message box
                 const string msg = "Select an item from the list to remove.";
                 const string boxTitle = "Error.";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,

@@ -17,6 +17,14 @@ namespace Chilpass
      */
     class EncryptionManager
     {
+        /*
+         * Encrypt(string, string)
+         * Paramaters: 
+         *      string (key) - Indicates the key with which to encrypt the value by.
+         *      string (value) - Indicates the value to be encrypted.
+         * Encrypts the given value passed as an argument using the encryption key given as an argument through 
+         * the AES encryption algorithm. 
+         */
         public static string Encrypt(string key, string value)
         {
             byte[] iv = new byte[16];
@@ -46,9 +54,17 @@ namespace Chilpass
             return Convert.ToBase64String(encryptedText);
         }
 
+
+        /*
+         * Decrypt(string, string)
+         * Paramaters: 
+         *      string (key) - Indicates the key with which to decrypt the value by.
+         *      string (value) - Indicates the encrypted value to be decrypted.
+         * Decrypts the given value passed as an argument using the encryption key given as an argument through 
+         * the AES encryption algorithm. 
+         */
         public static string Decrypt(string key, string encryptedText)
         {
-
             byte[] iv = new byte[16];
             byte[] buffer = Convert.FromBase64String(encryptedText);
 

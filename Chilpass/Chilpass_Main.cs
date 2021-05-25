@@ -22,7 +22,7 @@ namespace Chilpass
     {
 
         /*
-         * Constructor, initializes components.
+         * Constructor, initializes Windows Forms components.
          */
         public Chilpass_Main()
         {
@@ -30,34 +30,56 @@ namespace Chilpass
         }
 
         /*
-         * NewPasswordFileButton
+         * NewPasswordFileButton_Click
+         * On the event that the NewPasswordFileButton is clicked, this method
+         * is called.
+         * Prompts the user to save a password file (db) through file explorer. 
+         * Once the file is saved, this method stores the filepath and uses the 
+         * FormManager class to open the NewPasswordFile Form with the filepath
+         * as an argument.
          */
         private void NewPasswordFileButton_Click(object sender, EventArgs e)
         {
+            // open the File Explorer, with parameters for db file and recommended name
             var saveDatabaseFile = new SaveFileDialog();
             saveDatabaseFile.Filter = "Database Files (*.db) | *.db";
             saveDatabaseFile.Title = "Save a Database File";
             saveDatabaseFile.FileName = "NewPasswordFile";
+
+
             string filepath = null;
 
+            // File Saved
             if (saveDatabaseFile.ShowDialog() == DialogResult.OK)
             {
+                // get the filepath
                 filepath = saveDatabaseFile.FileName;
 
+                // use from manager to send filepath to NewPasswordFileForm
                 FormManager.OpenNPF(filepath);
             }
         }
 
         /*
-         * 
+         * OpenPasswordFileButton_Click
+         * On the event that the OpenPasswordFileButton is clicked, this method
+         * is called.
+         * Prompts the user to open an existing PasswordFile (db) in their file
+         * System, only accepts files with the correct file extension - .db. 
+         * After selecting the file, this method saves the path and creates a 
+         * SQLITe Connection with the file, querrying the stored 
+         * Salt and Hash in the file. Uses the FormManager class to open the
+         * OpenPasswordFile Form passing in the filepath, salt and hash.
          */
         private void OpenPasswordFileButton_Click(object sender, EventArgs e)
         {
             var filePath = string.Empty;
-
+            
+            // open the file explorer at the C drive
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = "C:\\";
+                // filter for only db files
                 openFileDialog.Filter = "Database Files (*.db) | *.db";
                 openFileDialog.FilterIndex = 2;
 
@@ -68,17 +90,24 @@ namespace Chilpass
                 }
             }
 
+            // ensure a file was selected
             if (filePath != "")
             {
                 string oldSalt = String.Empty;
                 string oldHash = String.Empty;
 
                 SQLiteConnection sqliteConnection;
+
+                // create a connection with the password file
                 sqliteConnection = DatabaseManager.CreateConnection(filePath);
+
+                // read the salt and the hash using DatabaseManager methods
                 oldSalt = DatabaseManager.ReadSalt(sqliteConnection);
                 oldHash = DatabaseManager.ReadHash(sqliteConnection);
+                // close the connection with the file
                 sqliteConnection.Close();
 
+                // open OPF Form, passing in path, salt, and hash
                 FormManager.OpenOPF(filePath, oldSalt, oldHash);
             }
         }
