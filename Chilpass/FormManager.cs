@@ -15,7 +15,7 @@ namespace Chilpass
     class FormManager
     {
         /*
-        * Open the FileForm form and close the current form.
+        * Open the FileForm form passing encryptiokn key and file destination
         */
         public static void OpenPasswordFileForm(string encrypKey, string file)
         {
@@ -27,6 +27,9 @@ namespace Chilpass
             NewPasswordFile.ShowDialog();
         }
 
+        /*
+        * Open the NPF form, passing filepath data
+        */
         public static void OpenNPF(string filepath)
         {
             var NewPasswordFile = Application.OpenForms["NPF"];
@@ -37,18 +40,26 @@ namespace Chilpass
             NewPasswordFile.ShowDialog();
         }
 
+        /*
+        * Open the OPF form, passing filepath data, bytes and hash
+        */
         public static void OpenOPF(string filePath, string oldSalt, string oldHash)
         {
             var openPasswordFile = Application.OpenForms["OPF"];
             if (openPasswordFile == null)
             {
+                // encoding for unicode string to bytes
                 byte[] bytes = Encoding.Unicode.GetBytes(oldSalt);
+                // pass data to new form
                 openPasswordFile = new OPF(filePath, bytes, oldHash);
             }
 
             openPasswordFile.ShowDialog();
         }
 
+        /*
+        * Open the Help form
+        */
         public static void OpenHelpForm()
         {
             var help = Application.OpenForms["Help"];
@@ -59,16 +70,23 @@ namespace Chilpass
             help.ShowDialog();
         }
 
+        /*
+         * Open the NewPasswordForm, passing encryption data and filepath destination
+         */
         public static void OpenNewPasswordForm(string encryptionKey, string filepath)
         {
             var NewPassword = Application.OpenForms["NewPassword"];
             if (NewPassword == null)
             {
+                // encryption and filepath destination to new form
                 NewPassword = new NewPassword(encryptionKey, filepath);
             }
             NewPassword.ShowDialog();
         }
 
+        /*
+        * Open the GeneratePassword form
+        */
         public static void OpenGeneratePasswordForm()
         {
             var generatePassword = Application.OpenForms["GeneratePasswordForm"];

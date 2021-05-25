@@ -12,36 +12,57 @@ namespace Chilpass
 {
     public partial class GeneratePasswordForm : Form
     {
+        // array containing whether or not character sets are to be used for generation
         bool[] chars = new bool[4];
 
         public GeneratePasswordForm()
         {
             InitializeComponent();
+            // add event to sizeTrackBar
             sizeTrackBar.ValueChanged += new System.EventHandler(TrackBar_ValueChanged);
             this.Controls.Add(this.sizeTrackBar);
+            // default set all char sets to true
             SetTrue(0);
             SetTrue(1);
             SetTrue(2);
             SetTrue(3);
+            // add event to checkedListBoxPassword
             checkedListBoxPassword.ItemCheck += checkedListBoxPassword_ItemChecked;
         }
 
 
+        /*
+         * CheckedListBoxPassword_ItemChecked
+         * This method is called inthe event that an item in the checkedListBoxPassword
+         * is checked. It ensures that no less than one box is checked at any given time
+         * by checking the number of boxes checked and if one box is checked, ensuring that
+         * the state is never changed to Unchecked.
+         */
         private void checkedListBoxPassword_ItemChecked(object sender, ItemCheckEventArgs e)
         {
-           
+           // if 1 item checked and is about to be unchecked
             if (NumberChecked() == 1 && e.NewValue == CheckState.Unchecked)
             {
+                // change newvalue to checked state
                 e.NewValue = CheckState.Checked;
             }
         }
 
+        /*
+         * SetTrue
+         * Sets the checkBox to checked state.
+         */
         private void SetTrue(int index)
         {
             checkedListBoxPassword.SetItemChecked(index, true);
             
         }
 
+        /*
+         * NumberChecked
+         * Counts the number of checkboxes that are currently selected
+         * in the ChecklistBoxPassword.
+         */
         private int NumberChecked()
         {
             int numberChecked = 0;
@@ -49,14 +70,20 @@ namespace Chilpass
             {
                 if (checkedListBoxPassword.GetItemChecked(i) == true)
                 {
-                    numberChecked++;
+                    numberChecked++; // increment on event checkbox is checked
                 }
             }
             return numberChecked;
         }
 
-        
 
+        /*
+         * TrackBar_ValueChanged
+         * This method is called on the event that the trackbar's value is changed.
+         * Sends a message to the user depending on the lengnth of their selected 
+         * password, displays the size of the password, Updates the character sets,
+         * and displays the generated random password to the user.
+         */
         private void TrackBar_ValueChanged(object sender, System.EventArgs e)
         {
             int size = sizeTrackBar.Value;
@@ -77,15 +104,24 @@ namespace Chilpass
                 trackBarValueLabel.ForeColor = Color.Green;
             }
 
+            // display size
             trackBarValueLabel.Text = "Size: " + (size.ToString()) + "\n" + message;
 
+            // check the char sets
             UpdateChecked();
+            // display and generate password
             passwordTextBox.Text = PasswordGenManager.GeneratePassword(size, chars[0], chars[1], chars[2], chars[3]);
 
         }
 
+        /*
+         * UpdateChecked()
+         * Checks what character sets are currently selected by the user through
+         * the checked list box.
+         */
         private void UpdateChecked()
         {
+            // loop through checkliastbox
             for (int i = 0; i < checkedListBoxPassword.Items.Count; i++)
             {
                 if (checkedListBoxPassword.GetItemChecked(i) == true)
@@ -99,17 +135,21 @@ namespace Chilpass
             }
         } 
 
+        /*
+         * CopyButton
+         * This method is called when the copybutton is clicked by the user.
+         * Copies the text in the password text box to the user's clipboard.
+         */
         private void copyButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(passwordTextBox.Text);
         }
 
         /*
-         * Error with Process.Start(link) on netcore
-         * Fix found here: https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
-         * Code used from fix for opening link in default browser.
+         * There is an error with Process.Start(link) on netcore
+         * The fix that is implemented below wasfound here: https://brockallen.com/2016/09/24/process-start-for-urls-on-net-core/
+         * Code used from fix for opening link in default browser, rather than specific browser.
          */
-
         private void linkLabelPassword_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string url = "https://howsecureismypassword.net/";
