@@ -10,12 +10,11 @@ namespace Chilpass
      * Creators: Jonathan Cho and Hans Wilter
      * HashingManager Class
      * Summary: Contains static methods for hashing functionality. PBKDF2 key derivation and salt generation.
-     * 
      */
     class HashingManager
     {
         /*
-         * HashPassword method takes a string cleartext password as a paramater.
+         *  HashPassword method takes a string cleartext password as a paramater.
          *  Iterations is set to a million to combat brute force attacks. Slow for the user and attackers.
          *  Uses SHA512 hashing algorithm
          *  Returns the hashed string
@@ -49,6 +48,10 @@ namespace Chilpass
             return salt;
         }
 
+        /*
+         * Encodes the salt with Unicode
+         * Turns a byte array into a string
+         */
         public static string GetSaltByteToString(byte[] theSalt)
         {
             string retVal = Encoding.Unicode.GetString(theSalt);

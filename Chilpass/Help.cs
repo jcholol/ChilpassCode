@@ -12,11 +12,19 @@ namespace Chilpass
 {
     public partial class Help : Form
     {
+        /*
+         * Creators: Jonathan Cho and Hans Wilter
+         * Help Partial Class
+         * Summary: This partial class helps the users navigate through the application
+         */
         public Help()
         {
             InitializeComponent();
         }
 
+        /*
+         * Exit button helps close the current help tab
+         */
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -34,6 +42,9 @@ namespace Chilpass
             {
                 Process.Start(url);
             }
+            /*
+             * catching different operating systems
+             */
             catch
             {
                 // hack because of this: https://github.com/dotnet/corefx/issues/10361

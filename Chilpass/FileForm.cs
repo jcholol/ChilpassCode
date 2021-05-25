@@ -15,7 +15,7 @@ namespace Chilpass
     /*
      * Creators: Jonathan Cho and Hans Wilter
      * FileForm Partial Class
-     * Summary: Contains methods for editing password file's information.
+     * Contains methods for editing password file's information.
      *      Removing, Adding, and Viewing passwords.
      * 
      */

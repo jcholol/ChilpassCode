@@ -11,8 +11,18 @@ namespace Chilpass
 {
     public partial class NewPassword : Form
     {
+        /*
+         * Global variables
+         */
         private string encryptionKey;
         private string filepath;
+
+        /*
+         * Creators: Jonathan Cho and Hans Wilter
+         * NewPassword Partial Class
+         * Summary: Contains methods for events trigged on New Password button after opening a file form. 
+         * Handles SQL connection, encryption and hashing
+         */
         public NewPassword()
         {
             InitializeComponent();
@@ -31,8 +41,10 @@ namespace Chilpass
         }
 
         /*
-         * submitButton_Click when the button is clicked by the user, the data is read from the textboxes, 
-         *  ecnrypted, and stored in the password file.
+         * submitButton_Click 
+         * On the event that the submitButton is clicked, this method is called.
+         * when the button is clicked by the user, the data is read from the textbox, 
+         * encrypted, and stored in the password file.
          */
         private void submitButton_Click(object sender, EventArgs e)
         {
@@ -42,6 +54,8 @@ namespace Chilpass
             // read data from the title and password text box
             string enteredTitle = titleTextBox.Text;
             string enteredPassword = passwordTextBox.Text;
+
+            //  if the entries are empty
             if (enteredTitle == "" && enteredPassword == "")
             {
                 const string msg = "The title and password fields are empty, please enter a valid title and password!";
@@ -50,6 +64,7 @@ namespace Chilpass
                     MessageBoxIcon.Error);
                 return;
             }
+            //  if the entered title is empty
             else if (enteredTitle == "")
             {
                 const string msg = "The title field is empty, please enter a valid title!";
@@ -58,6 +73,7 @@ namespace Chilpass
                     MessageBoxIcon.Error);
                 return;
             }
+            //  if the entered password is empty
             else if (enteredPassword == "")
             {
                 const string msg = "The password field is empty, please enter a valid password!";
@@ -67,15 +83,14 @@ namespace Chilpass
                 return;
             }
 
-
-
-
             // encrypt the data in both of the feilds
             string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, enteredTitle);
             string encryptedPassword = EncryptionManager.Encrypt(encryptionKey, enteredPassword);
 
+            //  checking if the entered title already exsists (unique key)
             string data = DatabaseManager.CheckIfExists(connection, encryptedTitle);
 
+            //  if it doesnt exist
             if (data == "")
             {
                 // insert a new entry into the password file
