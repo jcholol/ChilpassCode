@@ -17,7 +17,6 @@ namespace Chilpass
      * Chilpass_Main Partial Class
      * Summary: Contains methods for event triggers from the Chilpass_Main form.
      */
-
     public partial class Chilpass_Main : Form
     {
 
