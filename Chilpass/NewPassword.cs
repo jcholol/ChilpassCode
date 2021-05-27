@@ -60,7 +60,7 @@ namespace Chilpass
             if (passwordTextBox.Text != textBoxConfirmPassword.Text)
             {
                 const string msg = "The passwords do not match.";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -70,7 +70,7 @@ namespace Chilpass
             if (enteredTitle == "" && enteredPassword == "")
             {
                 const string msg = "The title and password fields are empty, please enter a valid title and password!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -79,7 +79,7 @@ namespace Chilpass
             else if (enteredTitle == "")
             {
                 const string msg = "The title field is empty, please enter a valid title!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -88,7 +88,7 @@ namespace Chilpass
             else if (enteredPassword == "")
             {
                 const string msg = "The password field is empty, please enter a valid password!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -104,6 +104,7 @@ namespace Chilpass
             //  if it doesnt exist
             if (data == "")
             {
+
                 // insert a new entry into the password file
                 DatabaseManager.InsertEntry(connection, encryptedTitle, encryptedPassword);
                 // close the SQLite connection 
@@ -117,7 +118,7 @@ namespace Chilpass
                 // ERROR an entry with that title already exists
                 System.Diagnostics.Debug.WriteLine("Entry with that title already exists");
                 const string msg = "An entry with that title already exists!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }

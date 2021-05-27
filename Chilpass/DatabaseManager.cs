@@ -189,7 +189,7 @@ namespace Chilpass
          * Paramaters: 
          *      SQLiteConnection (sqliteConnection) - Indicates the SQLiteConnection to interact with.
          *      string (title) - Indicates the title of the entry in question.
-         * Querries the database, selecting the Master from the INFO table in the database. 
+         * Querries the database, selecting the Title from the ENTRY table. 
          */
         public static string CheckIfExists(SQLiteConnection sqliteConnection, string title)
         {
@@ -199,6 +199,34 @@ namespace Chilpass
 
             // SQLite syntax for getting the Title from the ENTRY table, the Title equals the title argument
             sqliteCommand.CommandText = "SELECT Title FROM ENTRY WHERE Title = '" + title + "';";
+
+            string myreader = ""; // string to store results
+
+            // execute the command, read and store the data into myreader variable
+            sqliteDataReader = sqliteCommand.ExecuteReader();
+            while (sqliteDataReader.Read())
+            {
+                myreader = sqliteDataReader.GetString(0);
+            }
+            // if the resulting value is empty, the row does not exist
+            return myreader;
+        }
+
+        /*
+         * GetPassword(SQLiteConnection, string)
+         * Paramaters: 
+         *      SQLiteConnection (sqliteConnection) - Indicates the SQLiteConnection to interact with.
+         *      string (title) - Indicates the title of the entry in question.
+         * Querries the database, selecting the Title from the ENTRY table, getting the password. 
+         */
+        public static string GetPassword(SQLiteConnection sqliteConnection, string title)
+        {
+            SQLiteDataReader sqliteDataReader;
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+
+            // SQLite syntax for getting the Title from the ENTRY table, the Title equals the title argument
+            sqliteCommand.CommandText = "SELECT Password FROM ENTRY WHERE Title = '" + title + "';";
 
             string myreader = ""; // string to store results
 

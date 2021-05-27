@@ -39,6 +39,9 @@ namespace Chilpass
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.labelSearch = new System.Windows.Forms.Label();
+            this.buttonGo = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,9 +75,9 @@ namespace Chilpass
             // RemovePasswordButton
             // 
             this.RemovePasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.RemovePasswordButton.Location = new System.Drawing.Point(315, 39);
+            this.RemovePasswordButton.Location = new System.Drawing.Point(91, 51);
             this.RemovePasswordButton.Name = "RemovePasswordButton";
-            this.RemovePasswordButton.Size = new System.Drawing.Size(130, 23);
+            this.RemovePasswordButton.Size = new System.Drawing.Size(147, 23);
             this.RemovePasswordButton.TabIndex = 5;
             this.RemovePasswordButton.Text = "Remove Password";
             this.RemovePasswordButton.UseVisualStyleBackColor = true;
@@ -83,7 +86,7 @@ namespace Chilpass
             // NewPasswordButton
             // 
             this.NewPasswordButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.NewPasswordButton.Location = new System.Drawing.Point(94, 39);
+            this.NewPasswordButton.Location = new System.Drawing.Point(91, 22);
             this.NewPasswordButton.Name = "NewPasswordButton";
             this.NewPasswordButton.Size = new System.Drawing.Size(147, 23);
             this.NewPasswordButton.TabIndex = 4;
@@ -119,11 +122,40 @@ namespace Chilpass
             this.toolStripMenuItemDelete.Size = new System.Drawing.Size(107, 22);
             this.toolStripMenuItemDelete.Text = "Delete";
             // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(319, 33);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(100, 23);
+            this.textBoxSearch.TabIndex = 8;
+            // 
+            // labelSearch
+            // 
+            this.labelSearch.AutoSize = true;
+            this.labelSearch.Location = new System.Drawing.Point(268, 36);
+            this.labelSearch.Name = "labelSearch";
+            this.labelSearch.Size = new System.Drawing.Size(45, 15);
+            this.labelSearch.TabIndex = 9;
+            this.labelSearch.Text = "Search:";
+            // 
+            // buttonGo
+            // 
+            this.buttonGo.Location = new System.Drawing.Point(425, 33);
+            this.buttonGo.Name = "buttonGo";
+            this.buttonGo.Size = new System.Drawing.Size(39, 23);
+            this.buttonGo.TabIndex = 10;
+            this.buttonGo.Text = "Go";
+            this.buttonGo.UseVisualStyleBackColor = true;
+            this.buttonGo.Click += new System.EventHandler(this.buttonGo_Click);
+            // 
             // FileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 381);
+            this.Controls.Add(this.buttonGo);
+            this.Controls.Add(this.labelSearch);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.RemovePasswordButton);
             this.Controls.Add(this.NewPasswordButton);
@@ -135,6 +167,7 @@ namespace Chilpass
             this.Text = "Password File";
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -149,5 +182,8 @@ namespace Chilpass
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDelete;
+        private System.Windows.Forms.TextBox textBoxSearch;
+        private System.Windows.Forms.Label labelSearch;
+        private System.Windows.Forms.Button buttonGo;
     }
 }

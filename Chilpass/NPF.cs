@@ -75,7 +75,7 @@ namespace Chilpass
             if (masterPassword == "")
             {
                 const string msg = "The master password field is empty, please enter a valid password!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -84,7 +84,7 @@ namespace Chilpass
             if (!masterPassword.Equals(passwordConfirmation))
             {
                 const string msg = "The passwords do not match!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;

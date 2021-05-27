@@ -39,7 +39,7 @@ namespace Chilpass
             if (textBoxNewPassword.Text != textBoxConfirmPassword.Text)
             {
                 const string msg = "The passwords do not match.";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
@@ -47,7 +47,7 @@ namespace Chilpass
             if (textBoxNewPassword.Text == "")
             {
                 const string msg = "The password field is empty, please enter a valid password!";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;

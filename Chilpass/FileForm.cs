@@ -20,6 +20,9 @@ namespace Chilpass
      * FileForm is an authorized view, meaning that if a user has gotten to this stage they
      * have entered the masterpassword associated with the file and aare now authorized to 
      * view the file's contents.
+     * 
+     * Source - Microsoft Documentation, sorting listview
+     * https://docs.microsoft.com/en-us/troubleshoot/dotnet/csharp/sort-listview-by-column
      */
     public partial class FileForm : Form
     {
@@ -30,6 +33,7 @@ namespace Chilpass
         // stores entries
         private ArrayList encryptedArray;
 
+        private ListViewColumnSorter lvwColumnSorter;
 
         /*
          * Default Constructor
@@ -50,14 +54,18 @@ namespace Chilpass
             filepath = file;
             encryptionKey = encKey;
             InitializeComponent();
+            lvwColumnSorter = new ListViewColumnSorter();
+            this.listView.ListViewItemSorter = lvwColumnSorter;
             // loads the listviewtree with entries on load
             LoadListView();
             listView.ColumnWidthChanging += (listView_ColumnWidthChanging);
             listView.DoubleClick += listView_DoubleClick;
             listView.MouseClick += listView_MouseClick;
+            listView.ColumnClick += listView_ColumnClick;
             toolStripMenuItemOpen.Click += toolStripMenuItemOpen_Click;
             toolStripMenuItemEdit.Click += toolStripMenuItemEdit_Click;
             toolStripMenuItemDelete.Click += toolStripMenuItemDelete_Click;
+
         }
 
         /*
@@ -78,11 +86,13 @@ namespace Chilpass
             // ensure the user has selected an item
             if (listView.SelectedItems.Count > 0)
             {
-                //string title = listView.SelectedItems[0].Text;
+                string title = listView.SelectedItems[0].Text.Trim();
+                string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, title);
 
-                int index = listView.Items.IndexOf(listView.SelectedItems[0]);
-                index = index * 2;
-                System.Diagnostics.Debug.WriteLine("Index: " + index);
+
+                //int index = listView.Items.IndexOf(listView.SelectedItems[0]);
+                //index = index * 2;
+                //System.Diagnostics.Debug.WriteLine("Index: " + index);
 
                 const string msg = "Are you sure you want to delete this password entry? \nOnce it is deleted, it CANNOT be recovered.";
                 const string boxTitle = "Are you sure?";
@@ -92,10 +102,10 @@ namespace Chilpass
 
                 if (result == DialogResult.Yes)
                 {
-                    string temp = (string)encryptedArray[index];
-                    System.Diagnostics.Debug.WriteLine("Value get title: " + temp);
+                    //string temp = (string)encryptedArray[index];
+                    
                     SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
-                    DatabaseManager.RemoveEntry(connection, temp);
+                    DatabaseManager.RemoveEntry(connection, encryptedTitle);
                     connection.Close();
                     LoadListView();
                 }
@@ -104,7 +114,7 @@ namespace Chilpass
             {
                 // prompt user to select an item through a message box
                 const string msg = "Select an item from the list to remove.";
-                const string boxTitle = "Error.";
+                const string boxTitle = "Error";
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -142,6 +152,32 @@ namespace Chilpass
                     contextMenuStrip1.Show(Cursor.Position);
                 }
             }
+        }
+
+        private void listView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            this.listView.Sort();
         }
 
 
@@ -215,6 +251,30 @@ namespace Chilpass
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
         {
             Remove();
+        }
+
+        private void buttonGo_Click(object sender, EventArgs e)
+        {
+            string text = textBoxSearch.Text;
+            string encryptedText = EncryptionManager.Encrypt(encryptionKey, text);
+            SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
+            string result = DatabaseManager.CheckIfExists(connection, encryptedText);
+            if (result == "")
+            {
+                // prompt user to select an item through a message box
+                const string msg = "No entries with that title were found!\nEnsure that the title entered matches the desired entry completely.";
+                const string boxTitle = "Error";
+                var temp = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+
+            string encryptedPassword = DatabaseManager.GetPassword(connection, encryptedText);
+
+            string password = EncryptionManager.Decrypt(encryptionKey, encryptedPassword);
+
+            FormManager.OpenViewEntryForm(text, password);
+            
         }
     }
 }
