@@ -94,7 +94,33 @@ namespace Chilpass
             {
                 generatePassword = new GeneratePasswordForm();
             }
-            generatePassword.ShowDialog();
+            generatePassword.Show();
+        }
+
+        /*
+        * Open the ViewEntry form
+        */
+        public static void OpenViewEntryForm(string title, string pass)
+        {
+            var viewEntryForm = Application.OpenForms["ViewEntryForm"];
+            if (viewEntryForm == null)
+            {
+                viewEntryForm = new ViewEntryForm(title, pass);
+            }
+            viewEntryForm.ShowDialog();
+        }
+
+        /*
+        * Open the Edit Entry form
+        */
+        public static void OpenEditEntryForm(string title, string filepath, string encryptionkey)
+        {
+            var editEntryForm = Application.OpenForms["EditEntryForm"];
+            if (editEntryForm == null)
+            {
+                editEntryForm = new EditEntryForm(title, filepath, encryptionkey);
+            }
+            editEntryForm.ShowDialog();
         }
     }
 }

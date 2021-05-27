@@ -142,7 +142,10 @@ namespace Chilpass
          */
         private void copyButton_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(passwordTextBox.Text);
+            if (passwordTextBox.Text != "")
+            {
+                Clipboard.SetText(passwordTextBox.Text);
+            }
         }
 
         /*

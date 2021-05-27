@@ -93,12 +93,13 @@ namespace Chilpass
             this.Controls.Add(this.titleTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(256, 192);
             this.MinimumSize = new System.Drawing.Size(256, 192);
             this.Name = "NewPassword";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "NewPassword";
+            this.Text = "New Password";
             this.ResumeLayout(false);
             this.PerformLayout();
 

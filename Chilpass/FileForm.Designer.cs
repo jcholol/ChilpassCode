@@ -29,11 +29,17 @@ namespace Chilpass
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.listView = new System.Windows.Forms.ListView();
             this.Title = new System.Windows.Forms.ColumnHeader();
             this.Password = new System.Windows.Forms.ColumnHeader();
             this.RemovePasswordButton = new System.Windows.Forms.Button();
             this.NewPasswordButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // listView
@@ -85,6 +91,34 @@ namespace Chilpass
             this.NewPasswordButton.UseVisualStyleBackColor = true;
             this.NewPasswordButton.Click += new System.EventHandler(this.NewPasswordButton_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemOpen,
+            this.toolStripMenuItemEdit,
+            this.toolStripMenuItemDelete});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 70);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // toolStripMenuItemOpen
+            // 
+            this.toolStripMenuItemOpen.Name = "toolStripMenuItemOpen";
+            this.toolStripMenuItemOpen.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemOpen.Text = "Open";
+            // 
+            // toolStripMenuItemEdit
+            // 
+            this.toolStripMenuItemEdit.Name = "toolStripMenuItemEdit";
+            this.toolStripMenuItemEdit.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemEdit.Text = "Edit";
+            // 
+            // toolStripMenuItemDelete
+            // 
+            this.toolStripMenuItemDelete.Name = "toolStripMenuItemDelete";
+            this.toolStripMenuItemDelete.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItemDelete.Text = "Delete";
+            // 
             // FileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -93,11 +127,13 @@ namespace Chilpass
             this.Controls.Add(this.listView);
             this.Controls.Add(this.RemovePasswordButton);
             this.Controls.Add(this.NewPasswordButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximumSize = new System.Drawing.Size(560, 420);
             this.MinimumSize = new System.Drawing.Size(560, 420);
             this.Name = "FileForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Password File";
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -109,5 +145,9 @@ namespace Chilpass
         private System.Windows.Forms.Button NewPasswordButton;
         private System.Windows.Forms.ColumnHeader Title;
         private System.Windows.Forms.ColumnHeader Password;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemEdit;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDelete;
     }
 }

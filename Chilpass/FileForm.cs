@@ -52,6 +52,12 @@ namespace Chilpass
             InitializeComponent();
             // loads the listviewtree with entries on load
             LoadListView();
+            listView.ColumnWidthChanging += (listView_ColumnWidthChanging);
+            listView.DoubleClick += listView_DoubleClick;
+            listView.MouseClick += listView_MouseClick;
+            toolStripMenuItemOpen.Click += toolStripMenuItemOpen_Click;
+            toolStripMenuItemEdit.Click += toolStripMenuItemEdit_Click;
+            toolStripMenuItemDelete.Click += toolStripMenuItemDelete_Click;
         }
 
         /*
@@ -64,11 +70,16 @@ namespace Chilpass
          */
         private void RemovePasswordButton_Click(object sender, EventArgs e)
         {
+            Remove();
+        }
+
+        private void Remove()
+        {
             // ensure the user has selected an item
             if (listView.SelectedItems.Count > 0)
             {
                 //string title = listView.SelectedItems[0].Text;
-                
+
                 int index = listView.Items.IndexOf(listView.SelectedItems[0]);
                 index = index * 2;
                 System.Diagnostics.Debug.WriteLine("Index: " + index);
@@ -81,7 +92,7 @@ namespace Chilpass
 
                 if (result == DialogResult.Yes)
                 {
-                    string temp = (string) encryptedArray[index];
+                    string temp = (string)encryptedArray[index];
                     System.Diagnostics.Debug.WriteLine("Value get title: " + temp);
                     SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
                     DatabaseManager.RemoveEntry(connection, temp);
@@ -98,6 +109,41 @@ namespace Chilpass
                     MessageBoxIcon.Error);
             }
         }
+
+        /*
+         * listView_ColumnWidthChanging
+         * This method is called when the column width for the listView is changed.
+         * This method ensures that the width of the columns in the listView remain static,
+         * takes the event and assigns the defualt width to the newWidth event.
+         */
+        private void listView_ColumnWidthChanging(object sender, ColumnWidthChangingEventArgs e)
+        {
+            // ensure width stays the same
+            e.NewWidth = this.listView.Columns[e.ColumnIndex].Width;
+            // cancel the event that is happening
+            e.Cancel = true;
+
+        }
+
+        private void listView_DoubleClick(object sender, EventArgs e)
+        {
+            string title = listView.SelectedItems[0].Text;
+            string pass = listView.SelectedItems[0].SubItems[1].Text;
+            FormManager.OpenViewEntryForm(title, pass);
+        }
+
+        private void listView_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var item = listView.FocusedItem;
+                if (item != null && item.Bounds.Contains(e.Location))
+                {
+                    contextMenuStrip1.Show(Cursor.Position);
+                }
+            }
+        }
+
 
         /*
          * NewPasswordButton_Click
@@ -146,6 +192,28 @@ namespace Chilpass
         private void listView_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {}
+
+        private void toolStripMenuItemOpen_Click(object sender, EventArgs e)
+        {
+            string title = listView.SelectedItems[0].Text;
+            string pass = listView.SelectedItems[0].SubItems[1].Text;
+            FormManager.OpenViewEntryForm(title, pass);
+        }
+
+        private void toolStripMenuItemEdit_Click(object sender, EventArgs e)
+        {
+            string title = listView.SelectedItems[0].Text;
+            string pass = listView.SelectedItems[0].SubItems[1].Text;
+            FormManager.OpenEditEntryForm(title, filepath, encryptionKey);
+        }
+
+        private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
+        {
+            Remove();
         }
     }
 }

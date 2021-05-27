@@ -30,6 +30,7 @@ namespace Chilpass
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OPF));
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.EnterPasswordBox = new System.Windows.Forms.TextBox();
@@ -67,11 +68,12 @@ namespace Chilpass
             // 
             // showPasswordButton
             // 
-            this.showPasswordButton.Location = new System.Drawing.Point(202, 59);
+            this.showPasswordButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("showPasswordButton.BackgroundImage")));
+            this.showPasswordButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.showPasswordButton.Location = new System.Drawing.Point(190, 56);
             this.showPasswordButton.Name = "showPasswordButton";
-            this.showPasswordButton.Size = new System.Drawing.Size(25, 23);
+            this.showPasswordButton.Size = new System.Drawing.Size(26, 26);
             this.showPasswordButton.TabIndex = 9;
-            this.showPasswordButton.Text = "~";
             this.showPasswordToolTip.SetToolTip(this.showPasswordButton, "Toggle Password Visibility");
             this.showPasswordButton.UseVisualStyleBackColor = true;
             this.showPasswordButton.Click += new System.EventHandler(this.showPasswordButton_Click);
@@ -86,6 +88,7 @@ namespace Chilpass
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EnterPasswordBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(256, 192);
             this.MinimumSize = new System.Drawing.Size(256, 192);

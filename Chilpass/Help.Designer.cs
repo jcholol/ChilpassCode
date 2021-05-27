@@ -97,6 +97,7 @@ namespace Chilpass
             this.Controls.Add(this.howToLabel);
             this.Controls.Add(this.documentationLinkLabel);
             this.Controls.Add(this.exitButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(560, 420);
             this.MinimumSize = new System.Drawing.Size(560, 420);

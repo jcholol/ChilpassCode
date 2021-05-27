@@ -29,6 +29,7 @@ namespace Chilpass
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GeneratePasswordForm));
             this.sizeTrackBar = new System.Windows.Forms.TrackBar();
             this.trackBarValueLabel = new System.Windows.Forms.Label();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
@@ -62,16 +63,17 @@ namespace Chilpass
             this.passwordTextBox.Location = new System.Drawing.Point(12, 90);
             this.passwordTextBox.Multiline = true;
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(225, 39);
+            this.passwordTextBox.Size = new System.Drawing.Size(252, 39);
             this.passwordTextBox.TabIndex = 2;
             // 
             // copyButton
             // 
-            this.copyButton.Location = new System.Drawing.Point(243, 90);
+            this.copyButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("copyButton.BackgroundImage")));
+            this.copyButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.copyButton.Location = new System.Drawing.Point(270, 90);
             this.copyButton.Name = "copyButton";
-            this.copyButton.Size = new System.Drawing.Size(53, 28);
+            this.copyButton.Size = new System.Drawing.Size(26, 26);
             this.copyButton.TabIndex = 3;
-            this.copyButton.Text = "Copy";
             this.copyButton.UseVisualStyleBackColor = true;
             this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
             // 
@@ -113,6 +115,7 @@ namespace Chilpass
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.trackBarValueLabel);
             this.Controls.Add(this.sizeTrackBar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GeneratePasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GeneratePasswordForm";
