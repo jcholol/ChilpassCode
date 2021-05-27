@@ -77,10 +77,10 @@ namespace Chilpass
             // open the file explorer at the C drive
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "C:\\";
                 // filter for only db files
                 openFileDialog.Filter = "Database Files (*.db) | *.db";
                 openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = false;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
