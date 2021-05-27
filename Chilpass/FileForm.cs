@@ -209,6 +209,7 @@ namespace Chilpass
             string title = listView.SelectedItems[0].Text;
             string pass = listView.SelectedItems[0].SubItems[1].Text;
             FormManager.OpenEditEntryForm(title, filepath, encryptionKey);
+            LoadListView();
         }
 
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)

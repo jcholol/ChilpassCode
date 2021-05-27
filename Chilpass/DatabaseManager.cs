@@ -243,5 +243,14 @@ namespace Chilpass
             return array;
         }
 
+        public static void UpdateEntry(SQLiteConnection sqliteConnection, string title, string password)
+        {
+            SQLiteCommand sqliteCommand;
+            sqliteCommand = sqliteConnection.CreateCommand();
+            // SQLite syntax for getting the Title from the ENTRY table, the Title equals the title argument
+            sqliteCommand.CommandText = "UPDATE ENTRY SET Password = '" + password + "' WHERE Title = '" + title + "';" ;
+            sqliteCommand.ExecuteNonQuery();
+
+        }
     }
 }

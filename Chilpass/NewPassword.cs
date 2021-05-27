@@ -17,6 +17,8 @@ namespace Chilpass
         private string encryptionKey;
         private string filepath;
 
+        bool isShowing = false;
+
         /*
          * Creators: Jonathan Cho and Hans Wilter
          * NewPassword Partial Class
@@ -54,6 +56,15 @@ namespace Chilpass
             // read data from the title and password text box
             string enteredTitle = titleTextBox.Text;
             string enteredPassword = passwordTextBox.Text;
+
+            if (passwordTextBox.Text != textBoxConfirmPassword.Text)
+            {
+                const string msg = "The passwords do not match.";
+                const string boxTitle = "Error.";
+                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
             //  if the entries are empty
             if (enteredTitle == "" && enteredPassword == "")
@@ -110,6 +121,27 @@ namespace Chilpass
                 var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonShowPassword_Click(object sender, EventArgs e)
+        {
+            if (isShowing)
+            {
+                passwordTextBox.PasswordChar = '*';
+                textBoxConfirmPassword.PasswordChar = '*';
+                isShowing = false;
+            }
+            else
+            {
+                passwordTextBox.PasswordChar = '\0';
+                textBoxConfirmPassword.PasswordChar = '\0';
+                isShowing = true;
+            }
+        }
+
+        private void buttonGeneratePassword_Click(object sender, EventArgs e)
+        {
+            FormManager.OpenGeneratePasswordForm();
         }
     }
 }

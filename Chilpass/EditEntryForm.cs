@@ -14,6 +14,7 @@ namespace Chilpass
         private bool isShowing = false;
         private string filepath;
         private string encryptionKey;
+        string theTitle;
         public EditEntryForm()
         {
             InitializeComponent();
@@ -22,7 +23,8 @@ namespace Chilpass
         public EditEntryForm(string title, string newFilePath, string newEncryptionKey)
         {
             InitializeComponent();
-            textBoxTitle.Text = title;
+            theTitle = title;
+            textBoxTitle.Text = theTitle;
             filepath = newFilePath;
             encryptionKey = newEncryptionKey;
         }
@@ -59,37 +61,15 @@ namespace Chilpass
             SQLiteConnection connection = DatabaseManager.CreateConnection(filepath);
 
             // read data from the title and password text box
-            string enteredTitle = textBoxTitle.Text;
+            string enteredTitle = textBoxTitle.Text.Trim();
             string enteredPassword = textBoxConfirmPassword.Text;
 
             // encrypt the data in both of the feilds
             string encryptedTitle = EncryptionManager.Encrypt(encryptionKey, enteredTitle);
             string encryptedPassword = EncryptionManager.Encrypt(encryptionKey, enteredPassword);
-
-
-            //  checking if the entered title already exsists (unique key)
-            string data = DatabaseManager.CheckIfExists(connection, encryptedTitle);
-
-            //  if it doesnt exist
-            if (data == "")
-            {
-                // insert a new entry into the password file
-                DatabaseManager.InsertEntry(connection, encryptedTitle, encryptedPassword);
-                // close the SQLite connection 
-                connection.Close();
-
-                // close the form
-                Close();
-            }
-            else
-            {
-                // ERROR an entry with that title already exists
-                System.Diagnostics.Debug.WriteLine("Entry with that title already exists");
-                const string msg = "An entry with that title already exists!";
-                const string boxTitle = "Error.";
-                var result = MessageBox.Show(msg, boxTitle, MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            DatabaseManager.UpdateEntry(connection, encryptedTitle, encryptedPassword);
+            connection.Close();
+            Close();
         }
 
         private void buttonShowPassword_Click(object sender, EventArgs e)
@@ -97,13 +77,13 @@ namespace Chilpass
             if (isShowing)
             {
                 textBoxNewPassword.PasswordChar = '*';
-                textBoxNewPassword.PasswordChar = '*';
+                textBoxConfirmPassword.PasswordChar = '*';
                 isShowing = false;
             }
             else
             {
                 textBoxNewPassword.PasswordChar = '\0';
-                textBoxNewPassword.PasswordChar = '\0';
+                textBoxConfirmPassword.PasswordChar = '\0';
                 isShowing = true;
             }
         }

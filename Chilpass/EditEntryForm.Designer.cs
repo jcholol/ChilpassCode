@@ -138,6 +138,8 @@ namespace Chilpass
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.labelTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(343, 278);
+            this.MinimumSize = new System.Drawing.Size(343, 278);
             this.Name = "EditEntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Edit Entry";
