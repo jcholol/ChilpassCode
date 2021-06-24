@@ -58,8 +58,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="newPasswordFileField.Text" xml:space="preserve">
-    <value>From the main application window, select the New Password File button. The application will then prompt you to select a location on your system where you can store this password file, additionally form this window you can edit the name of the file. After you have pressed the save button, the applicaiton will then prompt you to enter a master password that will be associated with this file. 
-
+    <value>From the main application window, select the New Password File button. Then from the new window, select the location where you want the file to be stored and the name of the file. The application will then prompt the user to enter a master password that will be associated with the saved file. </value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>From the main application window, select the Open Password File button. Then from the file prompt, select the file to be opened. The application will then prompt the user to enter the master password that is associated with the selected file.
 </value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>From the main application window, select the Generate Password button. The user can choose which types of characters will be included in the set of characters used to generate the password. Additionally, the password size can be changed by using the slider on the bottom of the form.</value>
   </data>
 </root>

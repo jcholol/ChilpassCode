@@ -118,7 +118,7 @@ namespace Chilpass
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "GeneratePasswordForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GeneratePasswordForm";
+            this.Text = "Generate Password";
             ((System.ComponentModel.ISupportInitialize)(this.sizeTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
